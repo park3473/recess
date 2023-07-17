@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.admin.exam.service.impl.AdminExamMapper">
+	<select id="getAllList" resultType="hashMap"  parameterType="AdminExamVo">
+		SELECT * FROM TBL_EXAM
+		WHERE 1=1
+		<if test="SEARCH_TEXT != ''">
+		    <if test="SEARCH_TYPE != 'ALL'">
+	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
+	    	</if>
+	    </if>
+	    <if test="UP != ''">
+	    	order by ${UP} asc
+	    </if>
+	    <if test="DOWN != ''">
+	    	order by ${DOWN} desc
+	    </if>
+	    <if test="DOWN == '' and UP == ''">
+	    	order by CREATE_TM desc
+	    </if>
+	    LIMIT ${LIMIT} OFFSET ${OFFSET}
+	</select>
+	
+	<select id="getAllListCnt" resultType="int" parameterType="AdminExamVo">
+		SELECT COUNT(*) FROM TBL_EXAM
+		WHERE 1=1
+		<if test="SEARCH_TEXT != ''">
+		    <if test="SEARCH_TYPE != 'ALL'">
+	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
+	    	</if>
+	    </if> 
+	</select>
+	
+	<insert id="setAdminExamDataInsert" parameterType="AdminExamVo">
+		INSERT INTO TBL_EXAM (NAME , TYPE , CONTENT , CREATE_TM , UPDATE_TM)
+		VALUES(#{name} , 0 , #{content} , now() , now())
+	</insert>
+	
+	<update id="setAdminExamDataUpdate" parameterType="AdminExamVo">
+		UPDATE TBL_EXAM SET
+		<if test="name != ''">
+			NAME = #{name},
+		</if>
+		<if test="type != ''">
+		TYPE = #{type},
+		</if>
+		<if test="content != ''">
+		CONTENT = #{content},
+		</if>
+		UPDATE_TM = now()
+		
+		WHERE IDX = #{idx}
+	</update>
+	
+	<delete id="setAdminExamDataDelete" parameterType="AdminExamVo">
+		DELETE FROM TBL_EXAM WHERE IDX = #{idx}
+	</delete>
+	
+	<select id="getExamView" parameterType="AdminExamVo" resultType="AdminExamVo">
+		SELECT * FROM TBL_EXAM
+		WHERE IDX = #{idx}
+	</select>
+	
+	<!-- question_list 부분 -->
+	<select id="getQuestionList" parameterType="AdminQuestionListVo" resultType="hashMap">
+		SELECT LIST.* , Q.NAME , Q.TYPE , Q.CONTENT , Q.OBJECTIVES , Q.SELECT_TYPE , Q.SELECT_VAL , FROM TBL_QUESTION_LIST LIST JOIN TBL_QUESTION Q ON LIST.QUESTION_IDX = Q.IDX
+		WHERE EXAM_IDX = #{exam_idx}
+		ORDER BY SEQ
+	</select>
+	
+	<insert id="setAdminExamQuestionListInsert" parameterType="AdminQuestionListVo">
+		INSERT INTO TBL_QUESTION_LIST (EXAM_IDX , SEQ , QUESTION_IDX , CREATE_TM , UPDATE_TM)
+		VALUES (#{exam_idx} , #{seq} , #{question_idx} , now() , now())
+	</insert>
+	
+	<update id="setAdminExamQuestionListUpdate" parameterType="AdminQuestionListVo">
+		UPDATE TBL_QUESTION_LIST SET
+		<if test="question_idx != ''">
+			QUESTION_IDX = #{question_idx},
+		</if>
+		UPDATE_TM = now()
+		WHERE IDX = #{idx}
+	</update>
+	
+	<delete id="setAdminExamQuestionListDelete" parameterType="AdminQuestionListVo">
+		DELETE FROM TBL_QUESTION_LIST
+		WHERE IDX = #{idx}
+	</delete>
+
+
+</mapper>
