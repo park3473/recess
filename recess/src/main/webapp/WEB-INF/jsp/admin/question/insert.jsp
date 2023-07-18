@@ -82,7 +82,10 @@
                                             <span class="list_t">답안 타입</span>
                                             <select name="select_type" id="select_type" onchange="select_type_change()">
                                             	<option value="false" selected="selected">타입을 선택해 주세요</option>
+                                            	<!--
+                                            	OX 필요 없음  
                                             	<option value="0" >OX 퀴즈</option>
+                                            	  -->
                                             	<option value="1">다지선다</option>
                                             </select>
                                         </li>
@@ -308,6 +311,7 @@ function insertClick(InsertToConnectType)
 				var content = $('#select_ul_'+i+' [name=content]').val()
 				var image = '';
 				var image_boolean = 'false';
+				var score = $('#select_ul_'+i+' [name=score]').val()
 				
 				var SelectForm = new FormData();
 				SelectForm.append('seq', seq);
@@ -330,6 +334,7 @@ function insertClick(InsertToConnectType)
 					}
 					
 				}
+				SelectForm.append('score' , score);
 				SelectForm.append('image_boolean', image_boolean);
 				SelectForm.append('question_idx', question_idx);
 				
@@ -587,6 +592,9 @@ function select_list_append(count , length , select_type){
 		}
 		html += `</li>`;
 		
+		html += `<li>`;
+		html += `점수<input type="text" name="score" value="">`;
+		html += `</li>`;
 		
 		if(select_type == '1' || select_type == '2' || select_type == '3'){
 		

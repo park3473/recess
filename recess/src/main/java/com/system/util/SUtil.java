@@ -372,7 +372,7 @@ public class SUtil {
 	    if(fnames.length() > 0)
 	    {
 	    	fnames = fnames.substring(0, fnames.length()-1);
-	    }
+	    } 
 	    return fnames;
 	}
 

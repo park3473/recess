@@ -63,33 +63,21 @@
                                             <span class="list_t">문제 제목</span>
                                             <input class="input_title" type="text" id="name" name="name" value="${model.view.name }" >
                                         </li>
-                                        <li>
-                                            <span class="list_t">진단 목표</span>
-                                            <input class="input_title" type="text" id="objectives" name="objectives" value="${model.view.objectives }" >
-                                        </li>
                                         <li id="select_type_li">
                                             <span class="list_t">답안 타입</span>
                                             <select name="select_type" id="select_type" onchange="select_type_change()" disabled="disabled">
                                             	<option value="false">타입을 선택해 주세요</option>
+                                            	<!--
+                                            	//해당 부분에선 OX 퀴즈 불필요 
                                             	<option value="0" <c:if test="${model.view.select_type == '0' }">selected="selected"</c:if> >OX 퀴즈</option>
+                                            	-->
                                             	<option value="1" <c:if test="${model.view.select_type == '1' }">selected="selected"</c:if> >다지선다</option>
                                             </select>
                                             <button type="button" onclick="select_change()">답안 수정</button>
                                         </li>
-                                        <li id="select_val_li">
-                                            <span class="list_t">답안</span>
-                                            <select name="select_val" id="select_val" onchange="select_form_open()">
-                                            	<option value="O">O</option>
-                                            	<option value="X">X</option>
-                                            </select>
-                                        </li>
                                         <li>
                                         	<span class="list_t">문제 내용</span>
                                         	<textarea name="content" id="editor">${model.view.content }</textarea>
-                                        </li>
-                                        <li>
-                                            <span class="list_t">해설</span>
-                                            <input class="input_title" type="text" id="solution" name="solution" value="${model.view.solution }"  >
                                         </li>
                                     </ul>
                                 </div>
@@ -109,6 +97,7 @@
 		                            	<ul class="member_input" id="select_ul_${status.index }">
 		                            		<li>번호 : <input type="text" name="seq" value="${item.seq }" readonly="readonly"/></li>
 		                            		<li>내용 : <input type="text" name="content" value="${item.content }" readonly="readonly" /></li>
+		                            		<li>점수 : <input type="text" name="score" value="${item.score }" readonly="readonly" /></li>
 		                            		<c:if test="${item.image != ''}">
 		                            			<li>이미지 : <input type="text" name="image" value="${item.image }" readonly="readonly" /> <button type="button" onclick="image_change(this , '${status.index}')">이미지 변경</button></li>
 		                            		</c:if>
@@ -178,10 +167,8 @@ $(document).ready(function () {
 	
 if($('#select_type').val() == '0'){
 		$('#select_val_li').html(admin_select_val_0);
-		$('[name=select_val]').val('${model.view.select_val}');
 	}else if ($('#select_type').val() == '1'){
 		$('#select_val_li').html(admin_select_val_1);
-		$('[name=select_val]').val('${model.view.select_val}');
 		
 		
 	}
@@ -371,6 +358,9 @@ function select_list_append(count , length , select_type){
 		}
 		html += `</li>`;
 		
+		html += `<li>`;
+		html += `점수<input type="text" name="score" value="">`;
+		html += `</li>`;
 		
 		if(select_type == '1' || select_type == '2' || select_type == '3'){
 		
@@ -507,6 +497,7 @@ function updateClick(InsertToConnectType)
 							var content = $('#select_ul_'+i+' [name=content]').val()
 							var image = '';
 							var image_boolean = 'false';
+							var score = $('#select_ul_'+i+' [name=score]').val()
 							
 							var SelectForm = new FormData();
 							SelectForm.append('seq', seq);
@@ -529,6 +520,7 @@ function updateClick(InsertToConnectType)
 								}
 								
 							}
+							SelectForm.append('score' , score);
 							SelectForm.append('image_boolean', image_boolean);
 							SelectForm.append('question_idx', question_idx);
 							
@@ -556,6 +548,10 @@ function updateClick(InsertToConnectType)
 							})
 							
 						}
+						
+						console.log('수정 완료');
+						alert('해당 문제가 수정되었습니다.');
+						location.href = '/admin/question/list.do';	
 						
 					},
 					error : function(error , status , xhr){

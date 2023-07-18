@@ -21,8 +21,8 @@
 	</select>
 	
 	<insert id="setSelectInsert" parameterType="AdminSelectVo">
-		INSERT INTO TBL_SELECT (SEQ , QUESTION_IDX , CONTENT , IMAGE , CREATE_TM , UPDATE_TM)
-		VALUES (#{seq} , #{question_idx} , #{content} , #{image} , now() , now())
+		INSERT INTO TBL_SELECT (SEQ , QUESTION_IDX , CONTENT , IMAGE , SCORE , CREATE_TM , UPDATE_TM)
+		VALUES (#{seq} , #{question_idx} , #{content} , #{image} , #{score} , now() , now())
 	</insert>
 	
 	<update id="setSelectUpdate" parameterType="AdminSelectVo">
@@ -30,11 +30,14 @@
 		<if test="question_idx != ''">
 			QUESTION_IDX = #{question_idx},
 		</if>
-		<if test="content">
+		<if test="content != ''">
 			CONTENT = #{content},
 		</if>
-		<if test="image">
+		<if test="image != ''">
 			IMAGE = #{image},
+		</if>
+		<if test="score != ''">
+			SCORE = #{score},
 		</if>
 		UPDATE_TM = now()
 		WHERE IDX = #{idx}

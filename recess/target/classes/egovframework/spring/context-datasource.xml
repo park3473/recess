@@ -31,11 +31,4 @@
         <property name="validationQuery" value="select 1"/>
     </bean>
 
-
-
-
-
-
-
-   
 </beans>

@@ -60,9 +60,6 @@
 		<if test="content != ''">
 			CONTENT = #{content},
 		</if>
-		<if test="select_val != ''">
-			SELECT_VAL = #{select_val},
-		</if>
 		UPDATE_TM = now()
 		WHERE IDX = #{idx}
 	</update>

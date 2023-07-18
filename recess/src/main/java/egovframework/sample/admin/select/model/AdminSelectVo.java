@@ -8,6 +8,7 @@ public class AdminSelectVo {
 	String content = "";
 	String image_boolean = "";
 	String image = "";
+	String score = "";
 	String create_tm = "";
 	String update_tm = "";
 	
@@ -46,6 +47,12 @@ public class AdminSelectVo {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public String getScore() {
+		return score;
+	}
+	public void setScore(String score) {
+		this.score = score;
 	}
 	public String getCreate_tm() {
 		return create_tm;

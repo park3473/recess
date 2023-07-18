@@ -31,7 +31,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		HttpSession session = request.getSession();
 		String level = session.getAttribute("UserLevel") + "";
-		if(level.equals("73"))
+		if(level.equals("3") || level.equals("2"))
 		{
 			
 			System.out.println("AdminInterCeptor" + level);

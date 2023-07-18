@@ -103,6 +103,7 @@ public class AdminExamController {
 		
 		//해당 문항 및 답안 삭제
 		SUtil.AlertAndPageMove(response, "해당 자가진단이 삭제 되었습니다.", "/admin/exam/list.do");
+		
 	}
 	
 	

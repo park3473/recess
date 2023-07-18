@@ -62,10 +62,6 @@
                                             <input class="input_title" type="text" id="name" name="name" value="${model.view.name }" readonly="readonly" >
                                         </li>
                                         <li>
-                                            <span class="list_t">진단 목표</span>
-                                            <input class="input_title" type="text" id="objectives" name="objectives" value="${model.view.objectives }" readonly="readonly" >
-                                        </li>
-                                        <li>
                                             <span class="list_t">답안 타입</span>
                                             <c:if test="${model.view.select_type == '0' }">
                                             	<input class="input_title" type="text" id="select_type" name="select_type" value="OX퀴즈" readonly="readonly" >
@@ -75,16 +71,8 @@
                                             </c:if>
                                         </li>
                                         <li>
-                                            <span class="list_t">답안</span>
-                                            <input class="input_size mr" type="text" id="select_val" name="select_val" value="${model.view.select_val }" readonly="readonly" >
-                                        </li>
-                                        <li>
                                         	<span class="list_t">문제 내용</span>
                                         	<textarea name="content" id="editor">${model.view.content }</textarea>
-                                        </li>
-                                        <li>
-                                            <span class="list_t">해설</span>
-                                            <input class="input_title" type="text" id="solution" name="solution" value="${model.view.solution }" readonly="readonly" >
                                         </li>
                                     </ul>
                                 </div>
