@@ -8,4 +8,8 @@ public interface AdminProductService {
 
 	ModelMap getAllList(AdminProductVo adminProductVo);
 
+	void setProductData(AdminProductVo adminProductVo, String type);
+
+	ModelMap getProductData(AdminProductVo adminProductVo);
+
 }

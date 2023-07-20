@@ -12,6 +12,16 @@ public interface AdminProductMapper {
 
 	int getAllListCnt(AdminProductVo adminProductVo);
 
+	void setProductDataInsert(AdminProductVo adminProductVo);
+
+	void setProductDataUpdate(AdminProductVo adminProductVo);
+
+	void setProductDataDelete(AdminProductVo adminProductVo);
+
+	AdminProductVo getProductData(AdminProductVo adminProductVo);
+
+	List<?> getProductList(String value);
+
 	
 	
 }

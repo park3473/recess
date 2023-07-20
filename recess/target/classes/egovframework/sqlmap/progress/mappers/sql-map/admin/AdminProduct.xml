@@ -23,7 +23,7 @@
 	    LIMIT ${LIMIT} OFFSET ${OFFSET}
 	</select>
 	
-	<select id="getAllListCnt" parameterType="AdminProducVo" resultType="int">
+	<select id="getAllListCnt" parameterType="AdminProductVo" resultType="int">
 		SELECT COUNT(*) FROM TBL_PRODUCT
 		WHERE 1 = 1
 		<if test="SEARCH_TEXT != ''">
@@ -31,6 +31,32 @@
 	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
 	    	</if>
 	    </if>
+	</select>
+	
+	<insert id="setProductDataInsert" parameterType="AdminProductVo">
+		INSERT INTO TBL_PRODUCT (IMAGE , NAME , CREATE_TM , UPDATE_TM) VALUES (#{image} , #{name} , now() , now())
+	</insert>
+	
+	<update id="setProductDataUpdate" parameterType="AdminProductVo">
+		UPDATE TBL_PRODUCT SET
+		<if test="image != ''">
+			IMAGE = #{image}
+		</if>
+		<if test="name != ''">
+			NAME = #{name}
+		</if>
+		UPDATE_TM = now()
+		WHERE IDX = #{idx}
+	</update>
+	
+	<select id="getProductData" parameterType="AdminProductVo" resultType="AdminProductVo">
+		SELECT * FROM TBL_PRODUCT
+		WHERE IDX = #{idx}
+	</select>
+	
+	<select id="getProductList" parameterType="String" resultType="hashMap">
+		SELECT * FROM TBL_PRODUCT_LIST
+		WHERE EXAM_IDX = #{value}
 	</select>
 
 </mapper>

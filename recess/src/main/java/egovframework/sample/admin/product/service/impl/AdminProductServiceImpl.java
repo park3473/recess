@@ -51,5 +51,34 @@ public class AdminProductServiceImpl implements AdminProductService {
 		
 		return modelMap;
 	}
+
+	@Override
+	public void setProductData(AdminProductVo adminProductVo, String type) {
+		
+		switch (type) {
+		case "insert":
+			adminProductMapper.setProductDataInsert(adminProductVo);
+			break;
+		case "update":
+			adminProductMapper.setProductDataUpdate(adminProductVo);
+			break;
+		case "delete":
+			adminProductMapper.setProductDataDelete(adminProductVo);
+			break;
+		}
+		
+	}
+
+	@Override
+	public ModelMap getProductData(AdminProductVo adminProductVo) {
+		
+		ModelMap model = new ModelMap();
+		
+		AdminProductVo view = adminProductMapper.getProductData(adminProductVo);
+		
+		model.put("view", view);
+		
+		return model;
+	}
 	
 }

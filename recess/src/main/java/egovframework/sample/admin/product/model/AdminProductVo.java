@@ -6,6 +6,7 @@ public class AdminProductVo extends SearchVo{
 
 	String idx = "";
 	String image = "";
+	String image_change_bool = "";
 	String name = "";
 	String create_tm = "";
 	String update_tm = "";
@@ -22,6 +23,12 @@ public class AdminProductVo extends SearchVo{
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public String getImage_change_bool() {
+		return image_change_bool;
+	}
+	public void setImage_change_bool(String image_change_bool) {
+		this.image_change_bool = image_change_bool;
 	}
 	public String getName() {
 		return name;

@@ -176,6 +176,25 @@
                                     </ul>
                                 </li>
                                  -->
+                                 <li <c:if test="${fn:indexOf(fullURL , '/product/') > -1}">
+                                    class="adm_menu_active"
+                                    </c:if>>
+                                    <a href="${pageContext.request.contextPath}/admin/product/list.do">
+                                        <img src="${pageContext.request.contextPath}/resources/img/admin/file_icon.png" alt="파일관리" />
+                                    </a>
+                                    <ul class="sub_menu_con">
+                                        <div class="title notosans">
+                                            <span></span>
+                                            <span>상품 관리</span>
+                                        </div>
+                                        <li <c:if test="${fn:indexOf(fullURL, '/product/list') > -1}">class="nav_active"</c:if>>
+                                            <a href="${pageContext.request.contextPath}/admin/product/list.do">상품 리스트</a>
+                                        </li>
+                                        <li <c:if test="${fn:indexOf(fullURL, '/product/insert') > -1}">class="nav_active"</c:if>>
+                                            <a href="${pageContext.request.contextPath}/admin/product/insert.do">상품 등록</a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                         <!--관리자 메뉴 end-->

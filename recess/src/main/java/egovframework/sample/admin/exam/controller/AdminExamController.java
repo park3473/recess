@@ -17,6 +17,7 @@ import com.system.util.SUtil;
 
 import egovframework.sample.admin.exam.model.AdminExamVo;
 import egovframework.sample.admin.exam.service.AdminExamService;
+import egovframework.sample.admin.product.model.AdminProductListVo;
 import egovframework.sample.admin.question.model.AdminQuestionListVo;
 
 @Controller
@@ -139,6 +140,39 @@ public class AdminExamController {
 	public void AdminExamQuestionListDelete(@ModelAttribute("AdminQuestionListVo")AdminQuestionListVo AdminQuestionListVo , HttpServletRequest request , HttpServletResponse response) {
 		
 		adminExamService.setAdminExamQuestionList(AdminQuestionListVo , "delete");
+		
+	}
+	
+	//PRODUCT_LIST 부분
+	@RequestMapping(value="/admin/exam/product_list.do" , method = RequestMethod.GET)
+	public ModelAndView AdminExamProductList(@ModelAttribute("AdminProductListVo")AdminProductListVo AdminProductListVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelMap model = new ModelMap();
+		
+		model = adminExamService.getProductList(AdminProductListVo);
+		
+		model.put("exam_idx", AdminProductListVo.getExam_idx());
+		
+		return new ModelAndView("admin/exam/product_list" , "model" , model); 
+		
+	}
+	
+	
+	@RequestMapping(value="/admin/exam/product_list/insert.do" , method = RequestMethod.POST)
+	public void AdminExamProductInsert(@ModelAttribute("AdminProductListVo")AdminProductListVo AdminProductListVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
+		
+		adminExamService.setAdminProductList(AdminProductListVo , "insert");
+		
+		SUtil.AlertAndPageMove(response, "추가 되었습니다.", "/admin/exam/product.do?pro_idx="+AdminProductListVo.getPro_idx()+"");
+		
+	}
+	
+	@RequestMapping(value="/admin/exam/product_list/delete.do" , method = RequestMethod.POST)
+	public void AdminExamProductDelete(@ModelAttribute("AdminProductListVo")AdminProductListVo AdminProductListVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
+		
+		adminExamService.setAdminProductList(AdminProductListVo , "delete");
+		
+		SUtil.AlertAndPageMove(response, "삭제 되었습니다.", "/admin/exam/product.do?pro_idx="+AdminProductListVo.getPro_idx()+"");
 		
 	}
 	

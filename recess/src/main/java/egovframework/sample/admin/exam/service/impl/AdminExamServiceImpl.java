@@ -12,6 +12,7 @@ import com.system.util.PageVO;
 
 import egovframework.sample.admin.exam.model.AdminExamVo;
 import egovframework.sample.admin.exam.service.AdminExamService;
+import egovframework.sample.admin.product.model.AdminProductListVo;
 import egovframework.sample.admin.question.model.AdminQuestionListVo;
 
 @Service
@@ -121,6 +122,32 @@ public class AdminExamServiceImpl implements AdminExamService {
 		}
 		
 		
+	}
+
+	@Override
+	public void setAdminProductList(AdminProductListVo adminProductListVo, String type) {
+		
+		switch (type) {
+		case "insert":
+			adminExamMapper.setExamProductListInsert(adminProductListVo);
+			break;
+		case "delete":
+			adminExamMapper.setExamProductListDelete(adminProductListVo);
+			break;
+		}
+		
+	}
+
+	@Override
+	public ModelMap getProductList(AdminProductListVo adminProductListVo) {
+		
+		ModelMap model = new ModelMap();
+		
+		List<?> list = adminExamMapper.getProductList(adminProductListVo);
+		
+		model.put("list", list);
+		
+		return model;
 	}
 	
 }

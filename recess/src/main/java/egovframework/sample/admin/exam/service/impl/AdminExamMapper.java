@@ -4,6 +4,7 @@ import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import egovframework.sample.admin.exam.model.AdminExamVo;
+import egovframework.sample.admin.product.model.AdminProductListVo;
 import egovframework.sample.admin.question.model.AdminQuestionListVo;
 
 @Mapper("adminExamMapper")
@@ -30,5 +31,11 @@ public interface AdminExamMapper {
 	public void setAdminExamQuestionListDelete(AdminQuestionListVo adminQuestionListVo);
 
 	public List<?> getExamTypeAllList();
+
+	public List<?> getProductList(AdminProductListVo adminProductListVo);
+
+	public void setExamProductListInsert(AdminProductListVo adminProductListVo);
+
+	public void setExamProductListDelete(AdminProductListVo adminProductListVo);
 
 }

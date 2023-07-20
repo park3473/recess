@@ -35,14 +35,14 @@
                         <div class="sc_con">
                             <div class="title">
                                 <span></span>
-                                <span>자가진단 관리</span>
+                                <span>상품 관리</span>
                             </div>
                             <div class="table_wrap">
                                 <table id="bootstrap-data-table">
                                     <tr>
                                         <th class="number">번호</th>
-                                        <th class="name">제목</th>
-                                        <th class="type">사용여부</th>
+                                        <th class="name">상품명</th>
+                                        <th class="image">이미지</th>
                                         <th class="create_tm">생성일시</th>
                                         <th class="update_tm">수정일시</th>
                                         <th class="setting">비고</th>
@@ -51,12 +51,7 @@
                                     <tr data-role="button" data-id="${item.idx}"  >
                                         <td>${model.itemtotalcount - (status.index + model.page *  model.itemcount)}</td>
                                         <td>${item.name }</td>
-                                        <td>
-                                        	<c:choose>
-                                        		<c:when test="${item.type == '1' }">ON</c:when>
-                                        		<c:when test="${item.type == '0' }">OFF</c:when>
-                                        	</c:choose>
-                                        </td>
+                                        <td><button type="button" onclick="image_view('${item.image}')">이미지 보기</button></td>
                                         <td>
                                             ${fn:substring(item.create_tm,0,11)}
                                         </td>
@@ -64,9 +59,8 @@
                                             ${fn:substring(item.update_tm,0,11)}
                                         </td>
                                         <td>
-                                        	<button type="button" onclick="location.href='/admin/exam/question_list.do?exam_idx=${item.idx}'">문제 확인</button>
-                                        	<button type="button" onclick="location.href='/admin/exam/product_list.do?pro_idx=${item.idx}'">상품 확인</button>
-                                        	<button type="button" onclick="location.href='/admin/exam/update.do?idx=${item.idx}'">수정</button>
+                                        	<button type="button" onclick="location.href='/admin/product/update.do?idx=${item.idx}'">수정</button>
+                                        	<button type="button" onclick="location.href='/admin/product/view.do?idx=${item.idx}'">보기</button>
                                         </td>
                                     </tr>
                                     </c:forEach>
@@ -78,7 +72,6 @@
                                 <div>
                                     <select id="SEARCH_TYPE" name="SEARCH_TYPE">
                                         <option value="ALL">전체</option>
-                                        <option value="type" <c:if test="${model.before.SEARCH_TYPE == 'type'}">selected</c:if>>상태</option>
                                         <option value="name" <c:if test="${model.before.SEARCH_TYPE == 'name'}">selected</c:if>>이름</option>
                                     </select>
                                     <input style="width: 191px;" type="text" value="${model.before.SEARCH_TEXT }" name="SEARCH_TEXT" id="SEARCH_TEXT" >
@@ -87,7 +80,7 @@
                                 <div class="adm_btn_wrap stats_btn_area">
                                     <ul>
                                     <li class="delete">
-                                        <a href="./insert.do">자가진단 등록</a>
+                                        <a href="./insert.do">상품 등록</a>
                                     </li>
                                 </ul>
                                 </div>
@@ -136,11 +129,24 @@ function searchBtnClick(){
 
 $(document).ready(function () {
 	
-	$(".adm_menu_con > li").eq(2).find(".sub_menu_con").show();
-	$(".adm_menu_con > li").eq(2).css({
+	$(".adm_menu_con > li").eq(3).find(".sub_menu_con").show();
+	$(".adm_menu_con > li").eq(3).css({
 	    backgroundColor: "#fff"
 	});
 });
+
+function image_view(image_name){
+	
+	Swal.fire({
+		  title: '',
+		  html: '<img src="/resources/upload/product/image/'+image_name+'" alt="상품이미지">',
+		  showCloseButton: true,
+		}).then((result) => {
+		  // 닫기 버튼 클릭 시 처리할 로직 작성
+		  console.log('닫기 버튼이 클릭되었습니다.');
+		});
+	
+}
 
 </script>
 
