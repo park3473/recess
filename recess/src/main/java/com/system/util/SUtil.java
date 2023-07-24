@@ -533,5 +533,14 @@ public class SUtil {
 		
 		
 	}
+	
+	//ip대역 받아와 해당 휴게소가 어느지점인지 확인
+	public static String getRestingPlace(String ip) {
+		
+		
+		
+		return "";
+		
+	}
 
 }
