@@ -10,6 +10,11 @@
 		    <if test="SEARCH_TYPE != 'ALL'">
 	    		 AND ${SEARCH_TYPE} LIKE '%${SEARCH_TEXT}%'
 	    	</if>
+	    	<if test="SEARCH_TYPE == 'ALL'">
+	    		AND (
+	    			NAME LIKE '%${SEARCH_TEXT}%'
+	    		)
+	    	</if>
 	    </if>
 	    <if test="UP != ''">
 	    	order by ${UP} asc
@@ -40,10 +45,10 @@
 	<update id="setProductDataUpdate" parameterType="AdminProductVo">
 		UPDATE TBL_PRODUCT SET
 		<if test="image != ''">
-			IMAGE = #{image}
+			IMAGE = #{image},
 		</if>
 		<if test="name != ''">
-			NAME = #{name}
+			NAME = #{name},
 		</if>
 		UPDATE_TM = now()
 		WHERE IDX = #{idx}

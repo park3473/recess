@@ -20,9 +20,6 @@
 </style>
 
 <body>
-    <!--헤더-->
-	<%@ include file="../include/menu.jsp" %>
-    <!--헤더 end-->
 
     <!--본문-->
     <section id="adm_sc">
@@ -31,7 +28,7 @@
                 <div class="adm_sc_size">
 
                     <!--본문 내용-->
-                    <section class="adm_sc_txt">
+                    <section class="adm_sc_txt" style="width:auto !important">
                         <div class="sc_con">
                             <div class="title">
                                 <span></span>
@@ -59,7 +56,7 @@
                                             ${fn:substring(item.update_tm,0,11)}
                                         </td>
                                         <td>
-                                        	<button type="button" onclick="location.href='/admin/product/update.do?idx=${item.idx}'">수정</button>
+                                        	<button type="button" onclick="selectProduct(this)" data-idx="${item.idx }" data-name="${item.name }" >선택</button>
                                         </td>
                                     </tr>
                                     </c:forEach>
@@ -117,7 +114,7 @@ function searchBtnClick(){
 	
 	 URL = './list.do';
      URL = URL + "?PAGE=0";
-     URL = URL + "&ITEM_COUNT=" + '10';
+     URL = URL + "&ITEM_COUNT=" + '5';
 
      URL = URL + "&SEARCH_TEXT=" + encodeURI($('#SEARCH_TEXT').val());
      URL = URL + "&SEARCH_TYPE=" + $('#SEARCH_TYPE').val();
@@ -150,4 +147,3 @@ function image_view(image_name){
 </script>
 
 </html>
-

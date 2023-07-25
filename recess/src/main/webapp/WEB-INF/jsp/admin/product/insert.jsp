@@ -116,9 +116,9 @@ $(document).ready(function () {
 function insertClick()
 {
 
-	if($('#title').val() == '')
+	if($('#name').val() == '')
 	{
-		alert('제목을 입력 하여 주세요');
+		alert('상품명을 입력 하여 주세요');
 		return;
 	}
 

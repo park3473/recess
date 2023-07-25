@@ -18,6 +18,8 @@ import com.system.util.SUtil;
 import egovframework.sample.admin.exam.model.AdminExamVo;
 import egovframework.sample.admin.exam.service.AdminExamService;
 import egovframework.sample.admin.product.model.AdminProductListVo;
+import egovframework.sample.admin.product.model.AdminProductVo;
+import egovframework.sample.admin.product.service.AdminProductService;
 import egovframework.sample.admin.question.model.AdminQuestionListVo;
 
 @Controller
@@ -26,6 +28,8 @@ public class AdminExamController {
 	@Autowired
 	AdminExamService adminExamService;
 
+	@Autowired
+	AdminProductService adminProductService;
 	
 	//EXAM
 	@RequestMapping(value="/admin/exam/list.do" , method = RequestMethod.GET)
@@ -157,6 +161,34 @@ public class AdminExamController {
 		
 	}
 	
+	@RequestMapping(value="/admin/exam/product_list/select.do" , method = RequestMethod.GET)
+	public ModelAndView AdminExamProductSelect(@ModelAttribute("AdminProductVo")AdminProductVo AdminProductVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
+		
+		System.out.println("PAGE : " + AdminProductVo.getPAGE());
+		System.out.println("ITEM_COUNT : " + AdminProductVo.getITEM_COUNT());
+		
+		String PAGE = request.getParameter("PAGE") != null ? request
+				.getParameter("PAGE") : "0";
+		String ITEM_COUNT = request.getParameter("ITEM_COUNT") != null ? request
+				.getParameter("ITEM_COUNT") : "5";
+		
+		AdminProductVo.setPAGE(Integer.parseInt(PAGE));
+		AdminProductVo.setLIMIT(Integer.parseInt(ITEM_COUNT));
+		
+		int pagelimit = AdminProductVo.getPAGE() * AdminProductVo.getITEM_COUNT();
+		
+		AdminProductVo.setLIMIT(Integer.parseInt(ITEM_COUNT));
+		AdminProductVo.setOFFSET(pagelimit);
+		
+		ModelMap model = new ModelMap();
+		
+		model = adminProductService.getAllList(AdminProductVo);
+		
+		model.put("before", AdminProductVo);
+		
+		return new ModelAndView("admin/exam/product_select" , "model" , model);
+		
+	}
 	
 	@RequestMapping(value="/admin/exam/product_list/insert.do" , method = RequestMethod.POST)
 	public void AdminExamProductInsert(@ModelAttribute("AdminProductListVo")AdminProductListVo AdminProductListVo , HttpServletRequest request , HttpServletResponse response) throws IOException {
