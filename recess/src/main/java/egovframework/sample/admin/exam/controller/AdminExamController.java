@@ -195,8 +195,6 @@ public class AdminExamController {
 		
 		adminExamService.setAdminProductList(AdminProductListVo , "insert");
 		
-		SUtil.AlertAndPageMove(response, "추가 되었습니다.", "/admin/exam/product.do?pro_idx="+AdminProductListVo.getPro_idx()+"");
-		
 	}
 	
 	@RequestMapping(value="/admin/exam/product_list/delete.do" , method = RequestMethod.POST)

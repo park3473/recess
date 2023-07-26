@@ -61,7 +61,8 @@
                                         <th class="setting">비고</th>
                                     </tr>
                                     <c:forEach var="item" items="${model.list}" varStatus="status">
-                                    <tr data-role="button" class="list_tr">
+                                    <tr data-role="button" class="list_tr update">
+                                    	<input type="hidden" name="idx" value="${item.idx }">
                                     	<td>${item.min_score }</td>
                                     	<td>${item.max_score }</td>
                                     	<td>${item.recess }</td>
@@ -81,6 +82,16 @@
                                 </table>
                             </div>
                         </div>
+                        
+                        <!--저장하기 버튼-->
+                        <div class="register_btn_area">
+                            <div class="register_btn_con">
+                                <button class="storage" onclick="updateClick()">저장</button>
+                            </div>
+                        </div>
+                        <!--저장하기 버튼 end-->
+                        
+                        
                     </section>
                     <!--본문 내용 end-->
                 </div>
@@ -106,26 +117,143 @@ $(document).ready(function () {
 	});
 });
 
-function selectOpen(){
+var product_select;
+
+function selectOpen(btnNum){
 	
 	var url = '/admin/exam/product_list/select.do';
 	
-	window.open(url, '상품 추가', 'width=1600, height=500');
+	product_select = window.open(url, '상품 추가', 'width=1600, height=500');
 	
+	product_select.onload = function(){
+		
+		console.log(btnNum);
+		
+		product_select.document.getElementById('btnNum').value = btnNum;
+		
+	}
+
 }
 
 function selectAppend(){
 	
+	var cnt = $('.list_tr').length;
+	
 	var html = ``;
-	html += `<tr class="insert">`;
-	html += `<td><input type="text" name="min_score" id="min_score" oninput="this.value = this.value.replace(/[^0-9]/g, '');" ></td>`;
-	html += `<td><input type="text" name="max_score" id="max_score" oninput="this.value = this.value.replace(/[^0-9]/g, '');" ></td>`;
-	html += `<td><input type="text" name="recess" id="recess" oninput="this.value = this.value.replace(/[^0-9]/g, '');" ></td>`;
-	html += `<td><input type="text" name="" id="" readonly="readonly" placeholder="상품 선택 버튼을 클릭"></td>`;
-	html += `<td colspan="3"><button type="button" onclick="selectOpen()">상품 선택</button></td>`
-	html += `</tr>`
+	html += `<tr class="list_tr insert" id="in_`+cnt+`">`;
+	html += `<input type="hidden" name="pro_idx">`;
+	html += `<td><input type="text" name="min_score" oninput="this.value = this.value.replace(/[^0-9]/g, '');" ></td>`;
+	html += `<td><input type="text" name="max_score" oninput="this.value = this.value.replace(/[^0-9]/g, '');" ></td>`;
+	html += `<td><input type="text" name="recess" oninput="this.value = this.value.replace(/[^0-9]/g, '');" ></td>`;
+	html += `<td><input type="text" name="name" readonly="readonly" placeholder="상품 선택 버튼을 클릭"></td>`;
+	html += `<td colspan="3"><button type="button" onclick="selectOpen(`+cnt+`)">상품 선택</button></td>`
+	html += `</tr>`;
 	$('#bootstrap-data-table').append(html);
 	
+	
+}
+
+function updateClick(){
+	
+	var bool = confirm('해당 상품 리스트를 저장하시겠습니까?');
+	
+	if(bool){
+		console.log('저장 시작')
+		
+		updateCnt = $('.list_tr').length;
+		if(updateCnt <= 0){
+			alert('상품을 최소 한개 추가해주세요.');
+			return;
+		}
+		
+		for(var i=0; i < updateCnt; i++){
+			
+			//insert인지 update인지 구분 (insert 아니면 update임)
+			if($('#in_'+i).attr('class').includes('insert')){
+				//insert
+				var min_score = $('#in_'+i+' [name=min_score]').val();
+				var max_score = $('#in_'+i+' [name=max_score]').val();
+				var name = $('#in_'+i+' [name=name]').val();
+				var recess = $('#in_'+i+' [name=recess]').val();
+				var pro_idx = $('#in_'+i+' [name=pro_idx]').val();
+				
+				var ProductForm = new FormData();
+				ProductForm.append('min_score',min_score);
+				ProductForm.append('max_score',max_score);
+				ProductForm.append('name',name);
+				ProductForm.append('recess',recess);
+				ProductForm.append('pro_idx',pro_idx);
+				
+				$.ajax({
+					url : '/admin/exam/product_list/insert.do',
+					type : 'POST',
+					processData : false,
+					contentType : false,
+					data : ProductForm,
+					success : function(status , xhr){
+						
+						console.log('success');
+						
+					},
+					error : function(error , status , xhr){
+						
+						console.log('error');
+					}
+					
+					
+				})
+				
+				
+			}else{
+				//update
+				//insert
+				var min_score = $('#in_'+i+' [name=min_score]').val();
+				var max_score = $('#in_'+i+' [name=max_score]').val();
+				var name = $('#in_'+i+' [name=name]').val();
+				var recess = $('#in_'+i+' [name=recess]').val();
+				var pro_idx = $('#in_'+i+' [name=pro_idx]').val();
+				var idx = $('#in_'+i+' [name=idx]').val();
+				
+				var ProductForm = new FormData();
+				ProductForm.append('min_score',min_score);
+				ProductForm.append('max_score',max_score);
+				ProductForm.append('name',name);
+				ProductForm.append('recess',recess);
+				ProductForm.append('pro_idx',pro_idx);
+				ProductForm.append('idx',idx);
+				
+				$.ajax({
+					url : '/admin/exam/product_list/update.do',
+					type : 'POST',
+					processData : false,
+					contentType : false,
+					data : ProductForm,
+					success : function(status , xhr){
+						
+						console.log('success');
+						
+					},
+					error : function(error , status , xhr){
+						
+						console.log('error');
+					}
+					
+					
+				})
+			}
+			
+			
+			
+			
+		}
+		
+		
+		alert('해당 상품 저장이 완료되었습니다.')
+		
+		
+	}else{
+		return;
+	}
 	
 }
 

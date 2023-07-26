@@ -22,7 +22,7 @@
 	<a href="${pageContext.request.contextPath}/view/login.do">로그인 페이지 이동</a>
 </c:if>
 <c:if test="${sessionScope.Login == 'OkOk' }">
-	<a href="${pageContext.request.contextPath}/view/login.do">로그아웃</a>
+	<a href="${pageContext.request.contextPath}/view/logout.do">로그아웃</a>
 	<a href="${pageContext.request.contextPath}/admin/index.do">관리자</a>
 </c:if>
 

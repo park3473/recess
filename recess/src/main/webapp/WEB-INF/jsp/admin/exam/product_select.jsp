@@ -29,6 +29,7 @@
 
                     <!--본문 내용-->
                     <section class="adm_sc_txt" style="width:auto !important">
+                    	<input type="hidden" id="btnNum" value="">
                         <div class="sc_con">
                             <div class="title">
                                 <span></span>
@@ -137,10 +138,30 @@ function image_view(image_name){
 		  title: '',
 		  html: '<img style="width:100%" src="/resources/upload/product/image/'+image_name+'" alt="상품이미지">',
 		  showCloseButton: true,
+		  showConfirmButton : false,
 		}).then((result) => {
 		  // 닫기 버튼 클릭 시 처리할 로직 작성
 		  console.log('닫기 버튼이 클릭되었습니다.');
 		});
+	
+}
+
+function selectProduct(e){
+
+	var pro_idx = $(e).attr('data-idx');
+	var name = $(e).attr('data-name');
+	
+	console.log('pro-idx : ' + pro_idx);
+	console.log('name : ' + name);
+
+	var btnNum = $('#btnNum').val();
+	
+	console.log('btnNum : ' + btnNum);
+	
+	opener.$('#in_'+btnNum+' [name=pro_idx]').val(pro_idx);
+	opener.$('#in_'+btnNum+' [name=name]').val(name);
+	
+	window.close();
 	
 }
 
