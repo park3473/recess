@@ -71,13 +71,25 @@ public class UserController {
 		
 		System.out.println(ParkingConfig);
 		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("UserLevel") != null) {
+		
+			if(session.getAttribute("UserLevel").equals("3") || session.getAttribute("UserLevel").equals("2")) {
+				
+				return new ModelAndView("admin/index");
+				
+			}
+			
+		}
+		
 		if(ParkingConfig.equals("FALSE")) {
 		
 			ModelMap model = new ModelMap();
 			
 			model = userBoardDataService.getIndexBoardData();
 			
-			return new ModelAndView("view/index" , "model" , model);
+			return new ModelAndView("view/exam/index" , "model" , model);
 			
 		}else {
 			
@@ -152,8 +164,6 @@ public class UserController {
 			session.setAttribute("UserLevel", userMemberVo2.getLevel());
 			session.setAttribute("UserName", userMemberVo2.getName());
 			session.setAttribute("UserType", userMemberVo2.getType());
-			session.setAttribute("UserEmail", userMemberVo2.getEmail());
-			session.setAttribute("UserEmailAddress", userMemberVo2.getEmail_address());
 			
 			System.out.println("결과 : " +userMemberVo2.getMember_id());
 			

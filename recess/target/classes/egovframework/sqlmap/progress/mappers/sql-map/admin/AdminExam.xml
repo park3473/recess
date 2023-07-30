@@ -91,7 +91,7 @@
 	
 	<!-- product_list 부분 -->
 	<select id="getProductList" parameterType="AdminProductVo" resultType="hashMap">
-		SELECT LIST.* , P.NAME FROM TBL_PRODUCT_LIST LIST JOIN TBL_PRODUCT P ON LIST.PRO_IDX = P.IDX
+		SELECT LIST.* , P.NAME , P.IMAGE FROM TBL_PRODUCT_LIST LIST JOIN TBL_PRODUCT P ON LIST.PRO_IDX = P.IDX
 		WHERE EXAM_IDX = #{exam_idx}
 		ORDER BY MIN_SCORE
 	</select>

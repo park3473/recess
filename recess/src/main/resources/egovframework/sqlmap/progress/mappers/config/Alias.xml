@@ -16,6 +16,8 @@
 		<typeAlias type="egovframework.sample.user.board.model.UserBoardReplyVo" alias="UserBoardReplyVo"/>
 		<typeAlias type="egovframework.sample.user.member.model.UserMemberVo" alias="UserMemberVo"/>
 		<typeAlias type="egovframework.sample.user.subpage.model.UserSubPageVo" alias="UserSubPageVo"/>
+		<typeAlias type="egovframework.sample.user.exam.model.UserExamVo" alias="UserExamVo"/>
+		<typeAlias type="egovframework.sample.user.exam.model.UserExamResultVo" alias="UserExamResultVo"/>
 		
 		<!-- Admin Alias Start -->
 		<typeAlias type="egovframework.sample.admin.board.model.AdminBoardVo" alias="AdminBoardVo"/>

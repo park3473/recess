@@ -66,6 +66,7 @@
                                         <td>
                                         	<button type="button" onclick="location.href='/admin/exam/question_list.do?exam_idx=${item.idx}'">문제 확인</button>
                                         	<button type="button" onclick="location.href='/admin/exam/product_list.do?exam_idx=${item.idx}'">상품 확인</button>
+                                        	<button type="button" onclick="location.href='/admin/exam/result_list.do?exam_idx=${item.idx}'">진단 결과 리스트</button>
                                         	<button type="button" onclick="location.href='/admin/exam/update.do?idx=${item.idx}'">수정</button>
                                         </td>
                                     </tr>

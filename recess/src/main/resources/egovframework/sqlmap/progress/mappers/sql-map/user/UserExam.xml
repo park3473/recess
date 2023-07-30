@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.sample.user.exam.service.impl.UserExamMapper">
+	<select id="getExamData" parameterType="UserExamVo" resultType="hashMap">
+		SELECT
+		  exam_idx,
+		  idx,
+		  name,
+		  type,
+		  GROUP_CONCAT(select_content ORDER BY seq SEPARATOR ',') AS select_content_list,
+		  GROUP_CONCAT(select_score ORDER BY seq SEPARATOR ',') AS select_score_list
+		FROM (
+		  SELECT
+		    ql.exam_idx,
+		    q.idx,
+		    q.name,
+		    q.type,
+		    s.content AS select_content,
+		    s.score AS select_score,
+		    s.seq
+		  FROM TBL_QUESTION_LIST ql
+		  INNER JOIN TBL_QUESTION q ON ql.question_idx = q.idx
+		  INNER JOIN TBL_SELECT s ON q.idx = s.question_idx
+		  WHERE ql.exam_idx = #{idx}
+		) AS subquery
+		GROUP BY exam_idx, idx, name, type;
+	</select>
+	
+	<select id="getExamResultListDataCnt" parameterType="UserExamResultVo" resultType="int">
+		SELECT COUNT(*) FROM TBL_EXAM_RESULT
+		WHERE NAME = #{name} AND PHONE = #{phone}
+	</select>
+	
+	<select id="getExamOnOffCheck" parameterType="UserExamVo" resultType="String">
+		SELECT TYPE FROM TBL_EXAM
+		WHERE IDX = #{idx}
+	</select>
+	
+	<insert id="setExamResultData" parameterType="UserExamResultVo">
+		INSERT INTO TBL_EXAM_RESULT (EXAM_IDX , NAME , PHONE , PLACE , SCORE , PRODUCT , RECEIVE , VIDEO , AGE , CREATE_TM , UPDATE_TM)
+		VALUES (#{exam_idx} , #{name} , #{phone} , #{place} , #{score} , '' , 'no' , 'no' , #{age} , #{create_tm} , #{update_tm} )
+	</insert>
+	
+	
+	
+</mapper>

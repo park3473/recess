@@ -140,6 +140,7 @@ function image_view(image_name){
 		  title: '',
 		  html: '<img style="width:100%" src="/resources/upload/product/image/'+image_name+'" alt="상품이미지">',
 		  showCloseButton: true,
+		  showConfirmButton:false,
 		}).then((result) => {
 		  // 닫기 버튼 클릭 시 처리할 로직 작성
 		  console.log('닫기 버튼이 클릭되었습니다.');

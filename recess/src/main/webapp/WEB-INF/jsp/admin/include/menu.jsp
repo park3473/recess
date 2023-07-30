@@ -86,7 +86,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <!-- 
+                                <!--
                                 <li <c:if test="${fn:indexOf(fullURL , '/menu/') > -1}">
                                     class="adm_menu_active"
                                     </c:if>>
@@ -122,7 +122,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                                -->
+                                 -->
                                 <li <c:if test="${fn:indexOf(fullURL , '/exam/') > -1}">
                                     class="adm_menu_active"
                                     </c:if>>
@@ -195,6 +195,28 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li <c:if test="${fn:indexOf(fullURL, '/subpage/list') > -1}">class="adm_menu_active"</c:if>>
+                                            <a href="${pageContext.request.contextPath}/admin/subpage/list.do">
+                                            	<img src="${pageContext.request.contextPath}/resources/img/admin/menu_icon.png" alt="메뉴관리" />
+                                            </a>
+                                            <c:if test="${fn:indexOf(fullURL , '/subpage/') > -1}">
+	                                        <ul class="sub_menu_con">
+	                                        	<div class="title notosans">
+	                                        		<span></span>
+	                                        		<span>서브페이지 관리</span>
+	                                        	</div>
+		                                        <li <c:if test="${fn:indexOf(fullURL, 'subpage/list') > -1}">class="nav_active"</c:if>>
+		                                            <a href="/admin/subpage/list.do">서브페이지 리스트</a>
+		                                        </li>
+		                                        <li <c:if test="${fn:indexOf(fullURL, 'subpage/insert') > -1}">class="nav_active"</c:if>>
+		                                            <a href="/admin/subpage/insert.do">서브페이지 생성</a>
+		                                        </li>
+		                                        <li <c:if test="${fn:indexOf(fullURL, 'subpage/view') > -1}">class="nav_active"</c:if>>
+		                                            <a href="#">서브페이지 관리</a>
+		                                        </li>
+	                                        </ul>
+                                        	</c:if>
+                                        </li>
                             </ul>
                         </div>
                         <!--관리자 메뉴 end-->
