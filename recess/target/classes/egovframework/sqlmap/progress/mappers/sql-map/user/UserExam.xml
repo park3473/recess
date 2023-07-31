@@ -38,11 +38,24 @@
 		WHERE IDX = #{idx}
 	</select>
 	
-	<insert id="setExamResultData" parameterType="UserExamResultVo">
+	<insert id="setExamResultData" parameterType="UserExamResultVo" useGeneratedKeys="true" keyProperty="idx" >
 		INSERT INTO TBL_EXAM_RESULT (EXAM_IDX , NAME , PHONE , PLACE , SCORE , PRODUCT , RECEIVE , VIDEO , AGE , CREATE_TM , UPDATE_TM)
-		VALUES (#{exam_idx} , #{name} , #{phone} , #{place} , #{score} , '' , 'no' , 'no' , #{age} , #{create_tm} , #{update_tm} )
+		VALUES (#{exam_idx} , #{name} , #{phone} , #{place} , #{score} , '' , 'no' , 'no' , #{age} , now() , now() )
 	</insert>
 	
+	<select id="getExamResultList" parameterType="UserExamResultVo" resultType="hashMap">
+		SELECT * FROM TBL_EXAM_RESULT
+		WHERE NAME = #{name} AND PHONE = #{phone}
+	</select>
+	
+	<select id="getExamResultListData" parameterType="UserExamResultVo" resultType="UserExamResultVo">
+		SELECT * FROM TBL_EXAM_RESULT
+		WHERE NAME = #{name} AND PHONE = #{phone} AND IDX = #{idx}
+	</select>
+	
+	<select id="getExamResultProduct" parameterType="UserExamResultVo" resultType="hashMap">
+		SELECT LIST.* , P.IMAGE , P.NAME  FROM TBL_PRODUCT_LIST LIST JOIN TBL_PRODUCT P ON LIST.PRO_IDX = P.IDX WHERE LIST.EXAM_IDX = #{exam_idx}
+	</select>
 	
 	
 </mapper>

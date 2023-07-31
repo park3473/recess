@@ -30,6 +30,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/ckeditor/ckcontent.css">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/sweetalert/sweetalert2.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 
 </head>
 

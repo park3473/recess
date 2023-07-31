@@ -1,5 +1,7 @@
 package egovframework.sample.user.exam.contorller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import egovframework.sample.admin.product.model.AdminProductListVo;
 import egovframework.sample.user.exam.model.UserExamResultVo;
 import egovframework.sample.user.exam.model.UserExamVo;
 import egovframework.sample.user.exam.service.UserExamService;
@@ -66,16 +69,57 @@ public class UserExamContorller {
 		
 		model = userExamService.getExamData(UserExamVo);
 		
+		model.put("idx", UserExamVo.getIdx());
+		
 		return new ModelAndView("view/exam/exam" , "model" , model);
 		
 	}
 	
 	@RequestMapping(value="/view/exam/insert.do" , method = RequestMethod.POST)
-	public String UserExamResultInsert(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
+	public ModelAndView UserExamResultInsert(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
 		
-		userExamService.setExamResultData(UserExamResultVo);
+		ModelMap model = new ModelMap();
 		
-		return "view/exam/insert";
+		String idx = userExamService.setExamResultData(UserExamResultVo);
+		
+		UserExamResultVo.setIdx(idx);
+		
+		model.put("before", UserExamResultVo);
+		
+		return new ModelAndView("view/exam/insert" , "model" , model);
 	}
+	
+	@RequestMapping(value="/view/exam/result_list.do" , method = RequestMethod.POST)
+	public ModelAndView UserExamResultList(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelMap model = new ModelMap();
+		
+		model = userExamService.getExamResultList(UserExamResultVo);
+		
+		return new ModelAndView("view/exam/result_list" , "model" , model);
+		
+	}
+	
+	@RequestMapping(value="/view/exam/result_view.do" , method = RequestMethod.POST)
+	public ModelAndView UserExamResultListData(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelMap model = new ModelMap();
+		
+		//결과 내용
+		model = userExamService.getExamResultListData(UserExamResultVo);
+		
+		//진단 상품
+		List<?> ProductList = userExamService.getExamResultProduct(UserExamResultVo);
+		
+		
+		model.put("ProductList", ProductList);
+		
+		return new ModelAndView("view/exam/result_view" , "model" , model);
+		
+	}
+	
+	//상품관련
+	
+	
 	
 }

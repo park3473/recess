@@ -28,7 +28,7 @@
 		</select>
 		</li>
 	</ul>
-	<div id="ss">
+	<div id="exam_list">
   <c:forEach items="${model.list}" var="item" varStatus="status">
     <ul>
       <li>제목: ${item.name}</li>
@@ -44,6 +44,17 @@
 <div>
 	<button type="button" onclick="exam_result_insert()">제출 테스트</button>
 </div>
+
+<div style="display:none" id="submit">
+	<form action="/view/exam/insert.do" method="POST" >
+		<input type="text" name="exam_idx" value="${model.idx }">
+		<input type="text" name="name" value="">
+		<input type="text" name="phone" value="">
+		<input type="text" name="age" value="">
+		<input type="text" name="score" value="">
+	</form>
+</div>
+
 <!--공통하단-->
 <%@ include file="../../include/user/footer.jsp" %>
 <script type="text/javascript">
@@ -53,10 +64,14 @@ function exam_result_insert(){
 	var bool = confirm('해당 설문을 제출하시겠습니까?');
 	if(bool){
 	
+		var exam_check_member = member_check();
 		var exam_check_bool = exam_check();
 		
-		if(!exam_check_bool){
-			alert('해당 문항을 모두 체크해주세요.');
+		console.log('exam : ' + exam_check_bool);
+		console.log('member : ' + exam_check_member);
+		
+		if(!(exam_check_bool && exam_check_member)){
+			alert('해당 설문을 모두 확인해주세요.');
 			return;
 		}
 		
@@ -67,11 +82,21 @@ function exam_result_insert(){
 		    all_score += parseInt($(this).val());
 		})
 		
-		console.log('name : ' + $('[name=name]').val());
-		console.log('phone : ' + $('[name=phone]').val());
-		console.log('age : ' + $('[name=age]').val());
+		all_score += parseInt($('#survey [name=age]').val());
+		
+		console.log('name : ' + $('#survey [name=name]').val());
+		console.log('phone : ' + $('#survey [name=phone]').val());
+		console.log('age : ' + $('#survey [name=age]').val());
 		console.log('score_list : ' + score_list);
 		console.log('all_score : ' + all_score);
+		
+		$('#submit [name=name]').val($('#survey [name=name]').val());
+		$('#submit [name=phone]').val($('#survey [name=phone]').val());
+		$('#submit [name=age]').val($('#survey [name=age]').val());
+		$('#submit [name=score]').val(all_score);
+		
+		$('#submit form').submit();
+		
 		
 		
 	}
@@ -80,7 +105,7 @@ function exam_result_insert(){
 
 function exam_check(){
 
-	var surveyDiv = $("#ss");
+	var surveyDiv = $("#exam_list");
     var totalQuestions = ${fn:length(model.list)};
     var checkedCount = 0;
 
@@ -94,6 +119,24 @@ function exam_check(){
     var isAllChecked = checkedCount === totalQuestions;
 
     return isAllChecked
+	
+}
+
+function member_check(){
+	
+	var MemberCheck = true;
+	
+	if($('#survey [name=name]').val() != '' &&  $('#survey [name=phone]').val() != '' && $('#survey [name=age]').val() != ''){
+		
+		MemberCheck = true;
+		
+	}else{
+		
+		MemberCheck = false;
+		
+	}
+	
+	return MemberCheck
 	
 }
 

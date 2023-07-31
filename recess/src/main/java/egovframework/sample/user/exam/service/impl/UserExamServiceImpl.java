@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 
+import egovframework.sample.admin.product.model.AdminProductListVo;
 import egovframework.sample.user.exam.model.UserExamResultVo;
 import egovframework.sample.user.exam.model.UserExamVo;
 import egovframework.sample.user.exam.service.UserExamService;
@@ -49,11 +50,51 @@ public class UserExamServiceImpl implements UserExamService {
 	}
 
 	@Override
-	public void setExamResultData(UserExamResultVo userExamResultVo) {
+	public String setExamResultData(UserExamResultVo userExamResultVo) {
 		
 		userExamMapper.setExamResultData(userExamResultVo);
 		
+		String idx = userExamResultVo.getIdx();
+		
+		return idx;
+		
 	}
+
+	@Override
+	public ModelMap getExamResultList(UserExamResultVo userExamResultVo) {
+		
+		ModelMap model = new ModelMap();
+		
+		List<?> list = userExamMapper.getExamResultList(userExamResultVo);
+		
+		model.put("list", list);
+		
+		return model;
+	}
+
+	@Override
+	public ModelMap getExamResultListData(UserExamResultVo userExamResultVo) {
+		
+		ModelMap model = new ModelMap();
+		
+		UserExamResultVo view = new UserExamResultVo();
+		
+		view = userExamMapper.getExamResultListData(userExamResultVo);
+		
+		model.put("view", view);
+		
+		return model;
+	}
+
+	//상품관련
+	@Override
+	public List<?> getExamResultProduct(UserExamResultVo userExamResultVo) {
+		// TODO Auto-generated method stub
+		List<?> list = userExamMapper.getExamResultProduct(userExamResultVo);
+		
+		return list;
+	}
+
 	
 	
 	

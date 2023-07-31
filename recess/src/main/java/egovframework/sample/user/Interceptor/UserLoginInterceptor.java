@@ -36,6 +36,9 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
 		
+		//해당 부분은 로그인 유무 필요 X
+		return true;
+		/*
 		HttpSession session = request.getSession();
 		String level = session.getAttribute("UserLevel") + "";
 		int levelInt = Integer.parseInt(level);
@@ -47,6 +50,7 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter {
 			response.sendRedirect(request.getContextPath()+"/index.do");
 			return false;
 		}
+		*/
 		
 	}
 

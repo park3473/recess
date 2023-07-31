@@ -31,6 +31,7 @@
 		<typeAlias type="egovframework.sample.admin.question.model.AdminQuestionVo" alias="AdminQuestionVo"/>
 		<typeAlias type="egovframework.sample.admin.select.model.AdminSelectVo" alias="AdminSelectVo"/>
 		<typeAlias type="egovframework.sample.admin.product.model.AdminProductVo" alias="AdminProductVo"/>
+		<typeAlias type="egovframework.sample.admin.product.model.AdminProductListVo" alias="AdminProductListVo"/>
 		
 		<typeAlias type="egovframework.sample.menu.model.MenuVo" alias="MenuVo"/>
 		<typeAlias type="egovframework.sample.file.model.FileVo" alias="FileVo"/>
