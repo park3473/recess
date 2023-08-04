@@ -3,6 +3,7 @@ package egovframework.sample.admin.exam.service.impl;
 import java.util.List;
 
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
+import egovframework.sample.admin.exam.model.AdminExamResultVo;
 import egovframework.sample.admin.exam.model.AdminExamVo;
 import egovframework.sample.admin.product.model.AdminProductListVo;
 import egovframework.sample.admin.question.model.AdminQuestionListVo;
@@ -37,5 +38,9 @@ public interface AdminExamMapper {
 	public void setExamProductListInsert(AdminProductListVo adminProductListVo);
 
 	public void setExamProductListDelete(AdminProductListVo adminProductListVo);
+
+	public List<?> getAllResultList(AdminExamResultVo adminExamResultVo);
+
+	public int getAllResultListCnt(AdminExamResultVo adminExamResultVo);
 
 }

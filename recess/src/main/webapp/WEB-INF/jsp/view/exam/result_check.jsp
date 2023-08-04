@@ -15,11 +15,21 @@
 <%@ include file="../../include/user/menu.jsp" %>
 
 <div>
-	<h2>해당 진단 을 완료하였습니다.</h2>
-	<button type="button" onclick="location.href='/view/exam/result_view.do?name=${model.before.name}&phone=${model.phone}&idx=${model.before.idx}'">검사결과 확인하기</button>
+	<ul>
+		<li>이름 : <input type="text" name="name"></li>
+		<li>핸드폰 : <input type="text" name="phone" placeholder="-제외한 010부터 숫자만 입력해주세요." oninput="this.value = this.value.replace(/[^0-9]/g, '');"></li>
+	</ul>
+	<button type="button" onclick="result_list()">확인</button>
 </div>
+
 <!--공통하단-->
 <%@ include file="../../include/user/footer.jsp" %>
 <script type="text/javascript">
+
+function result_list(){
+	
+	location.href='/view/exam/result_list.do?name='+$('[name=name]').val()+'&phone='+$('[name=phone]').val()+'';
+	
+}
 
 </script>

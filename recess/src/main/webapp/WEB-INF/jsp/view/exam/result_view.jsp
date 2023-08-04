@@ -20,17 +20,39 @@
 		<li>이름 : ${model.view.name }</li>
 		<li>전화번호 : ${model.view.phone }</li>
 		<li>점수 : ${model.view.score }</li>
+		
 	</ul>
 	<h2>진단 상품</h2>
-	<c:forEach var="item" items="${model.ProductList }">
-		<ul>
+	<c:forEach var="item" items="${model.ProductList }" varStatus="status">
+		<ul id="product_${status.index }">
 			<li>최소 점수 : ${item.min_score }</li>
 			<li>최대 점수 : ${item.max_score }</li>
 			<li>상품명 : ${item.NAME }</li>
 			<li>상품이미지 : <button type="button" onclick="image_view('${item.IMAGE}')">상품이미지 보기</button></li>
 			<li>휴식시간 : ${item.recess }</li>
+			<c:if test="${model.view.product == '' }">
+				<li><button type="button" onclick="product_select('${item.NAME}' , '${item.pro_idx }')" >해당 상품 선택</button></li>
+			</c:if>
 		</ul>
 	</c:forEach>
+	<script>
+	const ranges = [
+        <c:forEach var="product" items="${model.ProductList}" varStatus="status">
+            [${product.min_score}, ${product.max_score}]<c:if test="${not status.last}">,</c:if>
+        </c:forEach>
+    	];
+		const a = ${model.view.score};
+		let product;
+		let found = false;
+		for (let i = 0; i < ranges.length; i++) {
+		  const range = ranges[i];
+		  if (a >= range[0] && a <= range[1]) {
+		    found = true;
+		    product = i;
+		    $('#product_'+product+'').attr('style','border : 1px solid #48aaff;background : aliceblue');
+		  }
+		}
+	</script>
 </div>
 
 <!--공통하단-->
@@ -48,6 +70,34 @@ function image_view(image_name){
 		  // 닫기 버튼 클릭 시 처리할 로직 작성
 		  console.log('닫기 버튼이 클릭되었습니다.');
 		});
+	
+}
+
+function sms_test(){
+	
+	var Message = '메세지 테스트';
+	var Phone = '01034733452';
+	var Sms_type = 'L';
+	var Type = '0';
+	
+	$.ajax({
+		url : '/view/sms/send.do',
+		type : 'POST',
+		data : ({
+			MESSAGE : Message,
+			PHONE : Phone,
+			SMS_TYPE : Sms_type,
+			TYPE : Type
+		}),
+		success : function(xhr , status){
+			console.log('success');
+		},
+		error : function(xhr , status , error){
+			console.log('error');
+		}
+		
+		
+	})
 	
 }
 

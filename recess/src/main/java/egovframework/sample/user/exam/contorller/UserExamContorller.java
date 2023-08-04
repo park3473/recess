@@ -89,7 +89,12 @@ public class UserExamContorller {
 		return new ModelAndView("view/exam/insert" , "model" , model);
 	}
 	
-	@RequestMapping(value="/view/exam/result_list.do" , method = RequestMethod.POST)
+	@RequestMapping(value="/view/exam/result_check.do" , method = RequestMethod.GET)
+	public String UserExamResultCheck(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
+		return "view/exam/result_check";
+	}
+	
+	@RequestMapping(value="/view/exam/result_list.do" , method = RequestMethod.GET)
 	public ModelAndView UserExamResultList(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
 		
 		ModelMap model = new ModelMap();
@@ -100,7 +105,7 @@ public class UserExamContorller {
 		
 	}
 	
-	@RequestMapping(value="/view/exam/result_view.do" , method = RequestMethod.POST)
+	@RequestMapping(value="/view/exam/result_view.do" , method = RequestMethod.GET)
 	public ModelAndView UserExamResultListData(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
 		
 		ModelMap model = new ModelMap();
@@ -111,15 +116,12 @@ public class UserExamContorller {
 		//진단 상품
 		List<?> ProductList = userExamService.getExamResultProduct(UserExamResultVo);
 		
-		
 		model.put("ProductList", ProductList);
+		
 		
 		return new ModelAndView("view/exam/result_view" , "model" , model);
 		
 	}
-	
-	//상품관련
-	
 	
 	
 }

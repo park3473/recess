@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.system.util.SUtil;
 
+import egovframework.sample.admin.exam.model.AdminExamResultVo;
 import egovframework.sample.admin.exam.model.AdminExamVo;
 import egovframework.sample.admin.exam.service.AdminExamService;
 import egovframework.sample.admin.product.model.AdminProductListVo;
@@ -203,6 +204,36 @@ public class AdminExamController {
 		adminExamService.setAdminProductList(AdminProductListVo , "delete");
 		
 		SUtil.AlertAndPageMove(response, "삭제 되었습니다.", "/admin/exam/product.do?pro_idx="+AdminProductListVo.getPro_idx()+"");
+		
+	}
+	
+	//진단결과 부분
+	@RequestMapping(value="/admin/exam/result/list.do" , method = RequestMethod.GET)
+	public ModelAndView AdminExamResultList(@ModelAttribute("AdminExamResultVo")AdminExamResultVo AdminExamResultVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		System.out.println("PAGE : " + AdminExamResultVo.getPAGE());
+		System.out.println("ITEM_COUNT : " + AdminExamResultVo.getITEM_COUNT());
+		
+		String PAGE = request.getParameter("PAGE") != null ? request
+				.getParameter("PAGE") : "0";
+		String ITEM_COUNT = request.getParameter("ITEM_COUNT") != null ? request
+				.getParameter("ITEM_COUNT") : "5";
+		
+		AdminExamResultVo.setPAGE(Integer.parseInt(PAGE));
+		AdminExamResultVo.setLIMIT(Integer.parseInt(ITEM_COUNT));
+		
+		int pagelimit = AdminExamResultVo.getPAGE() * AdminExamResultVo.getITEM_COUNT();
+		
+		AdminExamResultVo.setLIMIT(Integer.parseInt(ITEM_COUNT));
+		AdminExamResultVo.setOFFSET(pagelimit);
+		
+		ModelMap model = new ModelMap();
+		
+		model = adminExamService.getAllResultList(AdminExamResultVo);
+		
+		model.put("before", AdminExamResultVo);
+		
+		return new ModelAndView("admin/result/list" , "model" , model);
 		
 	}
 	

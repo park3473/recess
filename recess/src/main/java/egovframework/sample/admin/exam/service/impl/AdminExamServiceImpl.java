@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 
 import com.system.util.PageVO;
 
+import egovframework.sample.admin.exam.model.AdminExamResultVo;
 import egovframework.sample.admin.exam.model.AdminExamVo;
 import egovframework.sample.admin.exam.service.AdminExamService;
 import egovframework.sample.admin.product.model.AdminProductListVo;
@@ -148,6 +149,41 @@ public class AdminExamServiceImpl implements AdminExamService {
 		model.put("list", list);
 		
 		return model;
+	}
+
+	@Override
+	public ModelMap getAllResultList(AdminExamResultVo adminExamResultVo) {
+		
+		ModelMap modelMap = new ModelMap();
+		
+		List<?> list = adminExamMapper.getAllResultList(adminExamResultVo);
+		
+		System.out.println("size : " + list.size());
+		
+		int itemtotalcount = adminExamMapper.getAllResultListCnt(adminExamResultVo);
+		int itemcount  = adminExamResultVo.getITEM_COUNT();
+		int itempage = adminExamResultVo.getITEM_PAGE();
+		
+		PageVO pageVo = new PageVO(itemcount, itemtotalcount, itempage);
+		
+		if(pageVo.isItempagenext() == true){
+			modelMap.put("itempagenext", "true");
+		}else {
+			modelMap.put("itempagenext", "false");
+		}
+		
+		System.out.println(pageVo.getItempage());
+		
+		modelMap.put("page", pageVo.getItempage());
+		modelMap.put("itemcount", pageVo.getItemCount());
+		modelMap.put("itempagestart", pageVo.getItempagestart());
+		modelMap.put("itempageend", pageVo.getItempageend());
+		modelMap.put("itemtotalcount", pageVo.getItemtotalcount());
+		modelMap.put("itemtotalpage", pageVo.getItemtotalpage());
+		
+		modelMap.put("list", list);
+		
+		return modelMap;
 	}
 	
 }

@@ -13,12 +13,47 @@
 <!--공통 헤더 시작-->
 <%@ include file="../../include/user//header.jsp" %>
 <%@ include file="../../include/user/menu.jsp" %>
+<style>
+	tbody tr{
+	border :1px solid black;
+	}
+</style>
 
 <div>
 	<h2>진단 결과</h2>
-	<h2>진단 상품</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>핸드폰</th>
+				<th>휴게소</th>
+				<th>점수</th>
+				<th>선택 상품</th>
+				<th>참여 날짜</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="item" items="${model.list }" varStatus="status">
+				<tr onclick="location.href='/view/exam/result_view.do?name=${item.name}&phone=${item.phone }&idx=${item.idx }&exam_idx=${item.exam_idx }'">
+					<td>${status.index + 1 }</td>
+					<td>${item.name }</td>
+					<td>${item.phone }</td>
+					<td>${item.place }</td>
+					<td>${item.score }</td>
+					<td>${item.video }</td>
+					<td>${fn:substring(item.create_tm , 0, 11) }</td>
+				</tr>
+			</c:forEach>
+			
+		</tbody>
+	</table>
 </div>
 
 <!--공통하단-->
 <%@ include file="../../include/user/footer.jsp" %>
 <script type="text/javascript">
+
+
+
+</script>
