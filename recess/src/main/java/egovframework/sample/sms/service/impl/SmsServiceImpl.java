@@ -133,7 +133,7 @@ public class SmsServiceImpl implements SmsService {
 		// 데이터 맵핑 변수 정의
 		String arrKey[] = new String[] { "user_id", "secure", "msg", "rphone", "sphone1", "sphone2", "sphone3", "rdate",
 				"rtime", "mode", "testflag", "destination", "repeatFlag", "repeatNum", "repeatTime", "smsType",
-				"subject" };
+				"subject"};
 		String valKey[] = new String[arrKey.length];
 		valKey[0] = user_id;
 		valKey[1] = secure;

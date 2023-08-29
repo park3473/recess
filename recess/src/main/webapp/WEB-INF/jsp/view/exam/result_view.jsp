@@ -53,6 +53,9 @@
 		  }
 		}
 	</script>
+	<c:if test="${model.view.video == 'no' }">
+		<button type="button" onclick="video_view()">버튼</button>
+	</c:if>
 </div>
 
 <!--공통하단-->
@@ -100,5 +103,45 @@ function sms_test(){
 	})
 	
 }
+
+function video_view() {
+    Swal.fire({
+        title : '영상을 시청하시겠습니까?',
+        text : '영상을 시청하시겠습니까?',
+        icon : 'question',
+        showCancelButton : true,
+        confirmButtonText : '예',
+        cancelButtonText : '아니오'
+    }).then((result) => {
+        if(result.isConfirmed){
+            Swal.fire({
+                title: '영상 시청',
+                html: '<video id="videoInSwal" width="100%" controls><source src="/resources/video/1.mp4" type="video/mp4">Your browser does not support the video tag.</video>',
+                showCloseButton: true,
+                showConfirmButton: false,
+                focusConfirm: false,
+                didOpen: () => {
+                    const videoElement = document.getElementById('videoInSwal');
+                    videoElement.play().catch(error => {
+                        console.error("Video play failed: ", error);
+                    });
+                    videoElement.addEventListener('timeupdate', function() {
+                        if(videoElement.currentTime === videoElement.duration) {
+                            Swal.fire({
+                                title: '점수가 추가되었습니다!',
+                                text: '축하합니다! 영상 시청을 완료하셨습니다.',
+                                icon: 'success',
+                                confirmButtonText: '확인'
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
+
+
 
 </script>
