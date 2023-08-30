@@ -14,6 +14,43 @@
 <%@ include file="../../include/user//header.jsp" %>
 <%@ include file="../../include/user/menu.jsp" %>
 
+<!-- 콘텐츠 -->
+<div id="sub">
+    <div class="sub_wrap">
+        <div class="cont_wrap">
+            <!-- 타이틀 -->
+            <div class="sub_tit font_noto">운전자피로도<span class="f_wet_03"> 자가진단</span></div>
+            <!-- 타이틀끝 -->
+            <!-- 문제 -->
+            <div class="sub_wrap_box font_noto">
+                <div class="flex_l">
+                    <span class="box_06 blue_bg_01 txt_36 f_wet_05">Q1</span>
+                    <span class="txt_24 f_wet_05 l_pad_50">
+                    질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다<br>질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다<br>질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다<br>
+                    </span>
+                </div>
+                <div class="cont_txt">
+                    <div class="box_wrap font_noto txt_24">
+                        <ul class="qna_ul b_pad_30">
+                            <li class="qna_li"><span class="box_07 white_bg_01">1</span><input type="radio" name="xxx" value="yyy" checked class="radio">내용입력</li>
+                            <li class="qna_li"><span class="box_07 white_bg_01">2</span><input type="radio" name="xxx" value="yyy" class="radio">내용입력</li>
+                        </ul>
+                        <ul class="qna_ul">
+                            <li class="qna_li"><span class="box_07 white_bg_01">3</span><input type="radio" name="xxx" value="yyy" class="radio">내용입력</li>
+                            <li class="qna_li"><span class="box_07 white_bg_01">4</span><input type="radio" name="xxx" value="yyy" class="radio">내용입력</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- 문제끝 -->
+            <div class="btn_wrap">
+                <div class="btn_01 blue_bg_01 font_noto pointer animate__animated animate__swing animate__repeat-3" onclick="location.href='/view/subpage/view.do?idx=8';">제출하기</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 콘텐츠 끝 -->
+<!-- 
 <div id="survey">
 	<ul>
 		<li>이름 : <input type="text" name="name"></li>
@@ -44,6 +81,8 @@
 <div>
 	<button type="button" onclick="exam_result_insert()">제출 테스트</button>
 </div>
+-->
+
 
 <div style="display:none" id="submit">
 	<form action="/view/exam/insert.do" method="POST" >

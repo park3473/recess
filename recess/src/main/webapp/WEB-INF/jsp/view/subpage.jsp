@@ -16,13 +16,10 @@
 <!--공통 헤더 끝-->
 
 <!-- content -->
-<div class="ck-content">
+<div class="ck-content" style="height:100%">
 ${model.view.content }
 </div>
 <!-- content end -->
-
-
-<input type="hidden" name="SubPageName" value="${model.view.name }">
 <!--공통하단-->
 <%@ include file="../include/user/footer.jsp" %>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

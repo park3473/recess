@@ -1,0 +1,141 @@
+@charset "utf-8";
+
+/* ----------------------------------------------------------
+ * 레이아웃_공통(pc)
+---------------------------------------------------------- */
+html, body {width:100%;height:100%;padding:0;margin:0}
+body {font-size:1.05rem;font-family:'Malgun Gothic', dotum, sans-serif;color:#555}
+h1, h2, h3, h4, h5, h6 {font-size:0.938rem;font-family:'Malgun Gothic', dotum, sans-serif}
+ul, dl,dt,dd {margin:0;padding:0;list-style:none}
+a {color:#555}
+a:hover {color:#ce7784;text-decoration:none}
+
+input[type=text],input[type=password], textarea {
+-webkit-box-shadow:none !important;
+box-shadow:none !important;
+outline:none !important;
+border:1px #dedede solid !important;
+border-radius:10px;
+height:60px;
+padding-left:20px;
+color:#000;
+}
+ 
+input[type=text]:focus,input[type=password]:focus, textarea:focus,select:focus {
+-webkit-box-shadow:none !important;
+box-shadow:none !important;
+outline:none !important;
+border:1px #dedede solid !important;
+}
+
+input[type="radio"] {width:30px; height:30px; margin:0 5px 2px 30px; padding:0;vertical-align:middle}
+
+/* 공통 */
+.box_01{padding:10px 65px;border-radius:25px;text-align:center;display:inline-block}
+.box_02{color:#fff;padding:30px 130px;border-radius:25px;text-align:center;display:inline-block}
+.box_03{width:190px;height:190px;border-radius:50%;text-align:center;display:inline-block;top:500px;left:70px}
+.box_04{width:240px;height:240px;border-radius:50%;text-align:center;display:inline-block;top:50px;right:0}
+.box_05{color:#fff;width:300px;height:300px;line-height:300px;border-radius:50%;text-align:center;display:inline-block}
+.box_06{color:#fff;width:100px;height:100px;line-height:100px;border-radius:50%;text-align:center;display:inline-block}
+.box_07{width:60px;height:60px;line-height:60px;border-radius:50%;text-align:center;display:inline-block;font-weight:500}
+
+/* 색상 */
+.red_01{color:#7f2629}
+.red_02{color:#ed1b2f}
+.yellow_01{color:#ffbe54}
+.blue_01{color:#0071ce}
+
+/* 배경색 */
+.white_bg_01{background:#fff}
+.green_bg_01{background:#4dbe9e}
+.green_bg_02{background:#109a5f}
+.orange_bg_01{background:#e06223}
+.orange_bg_02{background:#ffbe54}
+.orange_bg_03{background:#ec8856}
+.blue_bg_01{background:#2349c7}
+.blue_bg_02{background:#2fb8e7}
+.red_bg_01{background:#ff2021}
+
+/* 애니메이션 */
+.move_01{animation:motion1 2s linear 2s infinite alternate}
+.move_02{animation:motion2 1s linear 0s infinite alternate}
+.move_03{animation:motion3 2s linear 0s infinite alternate}
+.move_04{animation:motion4 .9s linear 2s infinite alternate}
+@keyframes motion1 {0%{margin-top:0px} 100%{margin-top:20px}}
+@keyframes motion2 {0%{margin-top:0px} 100%{margin-top:20px}}
+@keyframes motion3 {0%{margin-left:0px} 100%{margin-right:20px}}
+@keyframes motion4 {0%{margin-left:0px} 100%{margin-right:100px}}
+
+/* col */
+.col_30{width:40%;float:left}
+.col_50{width:50%;float:left}
+.col_70{width:60%;float:left}
+
+/* flex */
+.flex_c{display:flex;align-items:center}
+.flex_l{display:flex;align-items:left}
+
+/* 이미지 */
+img{max-width:100%}
+
+
+/* ----------------------------------------------------------
+ * 메인
+---------------------------------------------------------- */
+
+#main{height:100%;background:url('/resources/img/main_bg.jpg') no-repeat center center}
+#main .main_wrap{width:90%;margin:0 auto;padding-top:130px}
+#main .main_wrap .cont_wrap {width:100%}
+#main .main_wrap .cont_wrap .charac_01{right:300px;top:120px}
+#main .main_wrap .cont_wrap .charac_02{right:130px;top:350px}
+
+/* ----------------------------------------------------------
+ * 서브
+---------------------------------------------------------- */
+#sub{height:100%;background:url('/resources/img/sub_bg.png') repeat center center}
+#sub .sub_wrap{width:90%;margin:0 auto}
+#sub .sub_wrap .cont_wrap {width:100%}
+.sub_wrap_box{background:#fff;border-radius:25px;padding:50px}
+.sub_wrap_box .cont_txt{background:#d4e1f2;border-radius:17px;padding:50px;margin-top:35px}
+
+/* 서브타이틀 */
+.sub_tit{font-size:60px;font-weight:700;color:#fff;text-align:center;padding:50px}
+/* 버튼 */
+.btn_wrap{text-align:center;padding:40px}
+.btn_wrap .btn_01{font-size:34px;font-weight:500;color:#fff;display:inline-block;border-radius:35px;padding:10px 80px}
+
+/* 플렉스박스 */
+.ex{}
+.ex .flexbox{display:flex;flex-wrap:wrap;gap:1em}
+.ex .item{flex-basis:600px;flex-grow:1;border-radius:25px;text-align:center;padding:30px 100px}
+.ex .tb_01{padding:10px;border-radius:30px;text-align:center;background:#fff;font-size:26px;font-weight:600;width:100%}
+.ex .tb_02{padding:10px;border-radius:30px;text-align:center;background:#fff;font-size:20px;font-weight:600;width:170px;display:inline-block}
+.charac_c{top:38%;left:42%;transform:translate(-50%, -50%);}
+
+/* li가로처리 */
+.box_wrap {width:100%_}
+.box_wrap ul {list-style:none}
+.box_wrap li {display:inline-block;text-align:center}
+.box_wrap .arrow{width:30px;height:30px;line-height:30px;border-radius:50%;background:#d2d2d2;font-size:18px;display:inline-block}
+.box_wrap .gab{border-left:1px #fff solid;margin:0 65px}
+.box_wrap .qna_ul{display:inline-block;width:100%;}
+.box_wrap .qna_li{width:50%;float:left;text-align:left}
+.box_wrap .coupon{width:50%;text-align:left}
+.box_wrap .line{background:url('/resources/img/line.png') repeat-x center 30%;width:200px;margin-right:-4px}
+
+/* 탭 */
+.ex_tab{position:relative;min-height:450px;text-align:center}
+.ex_tab .tab {width:40%;display:inline-block}
+.ex_tab .tab label{background:#d2d2d2;padding:10px;position:relative;display:inline-block;width:100%;border-radius:25px;cursor:pointer;font-size:26px;font-weight:500}
+.ex_tab .tab [type=radio]{display:none}
+.ex_tab .content {position:absolute;top:100px;left:0;right:0;bottom:0;padding:20px;background:#d4e1f2;height:300px;overflow:auto;text-align:left;border-radius:25px;}
+.ex_tab [type=radio]:checked ~ label{background:#2349c7;z-index:2;border-radius:25px;color:#fff}
+.ex_tab [type=radio]:checked ~ label ~ .content {z-index:1}
+
+/* 동영상 */
+.overlay{position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0, 0, 0, 0.7);transition:opacity 500ms;visibility:hidden;opacity:0}
+.overlay:target{visibility:visible;opacity:1}
+.popup {margin:70px auto;padding:20px;background:#fff;border-radius:5px;width:30%;position:relative;transition:all 2s ease-in-out}
+.popup .close {position:absolute;bottom:20px;right:30px;transition:all 200ms;font-size:30px;font-weight:bold;text-decoration:none;color:#333}
+.popup .content {max-height:30%;overflow:auto}
+

@@ -62,6 +62,7 @@ public class UserExamContorller {
 		
 	}
 	
+	//자가진단
 	@RequestMapping(value="/view/exam/exam.do" , method = RequestMethod.GET)
 	public ModelAndView UserExamExam(@ModelAttribute("UserExamVo")UserExamVo UserExamVo , HttpServletRequest request , HttpServletResponse response) {
 		
@@ -75,6 +76,7 @@ public class UserExamContorller {
 		
 	}
 	
+	//진단 내용 저장
 	@RequestMapping(value="/view/exam/insert.do" , method = RequestMethod.POST)
 	public ModelAndView UserExamResultInsert(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
 		
@@ -86,25 +88,10 @@ public class UserExamContorller {
 		
 		model.put("before", UserExamResultVo);
 		
-		return new ModelAndView("view/exam/insert" , "model" , model);
+		return new ModelAndView("view/exam/result_check" , "model" , model);
 	}
 	
-	@RequestMapping(value="/view/exam/result_check.do" , method = RequestMethod.GET)
-	public String UserExamResultCheck(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
-		return "view/exam/result_check";
-	}
-	
-	@RequestMapping(value="/view/exam/result_list.do" , method = RequestMethod.GET)
-	public ModelAndView UserExamResultList(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
-		
-		ModelMap model = new ModelMap();
-		
-		model = userExamService.getExamResultList(UserExamResultVo);
-		
-		return new ModelAndView("view/exam/result_list" , "model" , model);
-		
-	}
-	
+	//진단 결과 내용 보기 - 휴식 시간 등
 	@RequestMapping(value="/view/exam/result_view.do" , method = RequestMethod.GET)
 	public ModelAndView UserExamResultListData(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
 		
@@ -118,10 +105,45 @@ public class UserExamContorller {
 		
 		model.put("ProductList", ProductList);
 		
-		
 		return new ModelAndView("view/exam/result_view" , "model" , model);
 		
 	}
+	
+	//진단 결과 상품 선택
+	@RequestMapping(value="/view/exam/result_select.do" , method = RequestMethod.GET)
+	public ModelAndView UserExamResultSelectGet(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelMap model = new ModelMap();
+		
+		//결과 내용
+		model = userExamService.getExamResultListData(UserExamResultVo);
+		
+		//진단 상품
+		List<?> ProductList = userExamService.getExamResultProduct(UserExamResultVo);
+		
+		model.put("ProductList", ProductList);
+		
+		return new ModelAndView("view/exam/result_select" , "model" , model);
+		
+	}
+	
+	//진단 결과 상품 문자 수령
+	@RequestMapping(value="/view/exam/result_select.do" , method = RequestMethod.POST)
+	public void UserExamResultSelectPost(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
+		
+	}
+	
+	@RequestMapping(value="/view/exam/result_list.do" , method = RequestMethod.GET)
+	public ModelAndView UserExamResultList(@ModelAttribute("UserExamResultVo")UserExamResultVo UserExamResultVo , HttpServletRequest request , HttpServletResponse response) {
+		
+		ModelMap model = new ModelMap();
+		
+		model = userExamService.getExamResultList(UserExamResultVo);
+		
+		return new ModelAndView("view/exam/result_list" , "model" , model);
+		
+	}
+	
 	
 	
 }
