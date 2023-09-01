@@ -9,11 +9,15 @@
 <html lang="ko">
 
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-
 <!--공통 헤더 시작-->
 <%@ include file="../include/user//header.jsp" %>
+
+<script src="${pageContext.request.contextPath}/resources/js/time_main.js"></script>
+
 <%@ include file="../include/user/menu.jsp" %>
 <!--공통 헤더 끝-->
+
+
 
 <!-- content -->
 <div class="ck-content" style="height:100%">

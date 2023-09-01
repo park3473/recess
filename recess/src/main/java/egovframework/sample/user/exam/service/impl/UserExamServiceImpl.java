@@ -95,6 +95,25 @@ public class UserExamServiceImpl implements UserExamService {
 		return list;
 	}
 
+	@Override
+	public void setExamResultScorePlus(UserExamResultVo userExamResultVo) {
+		
+		userExamMapper.setExamResultScorePlus(userExamResultVo);
+		
+	}
+
+	@Override
+	public String getExamResultCnt(UserExamResultVo userExamResultVo) {
+		
+		String result = "";
+		
+		int ResultCnt = userExamMapper.getExamResultCnt(userExamResultVo);
+		
+		result = String.valueOf(ResultCnt);
+		
+		return result;
+	}
+
 	
 	
 	

@@ -92,6 +92,9 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 	        }
 	        String clientIp = ip;
 	        System.out.println("접속 한 아이피"+clientIp);
+	        
+	        session.setAttribute("ip", clientIp);
+	        
 	        return true;
 		}
 		

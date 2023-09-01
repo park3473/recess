@@ -40,9 +40,6 @@
 	
 	<update id="setAdminExamDataUpdate" parameterType="AdminExamVo">
 		UPDATE TBL_EXAM SET
-		<if test="name != ''">
-			NAME = #{name},
-		</if>
 		<if test="type != ''">
 		TYPE = #{type},
 		</if>

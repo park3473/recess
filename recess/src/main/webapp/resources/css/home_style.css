@@ -120,7 +120,7 @@ img{max-width:100%}
 .box_wrap .gab{border-left:1px #fff solid;margin:0 65px}
 .box_wrap .qna_ul{display:inline-block;width:100%;}
 .box_wrap .qna_li{width:50%;float:left;text-align:left}
-.box_wrap .coupon{width:50%;text-align:left}
+.box_wrap .coupon{width:60%;text-align:left}
 .box_wrap .line{background:url('/resources/img/line.png') repeat-x center 30%;width:200px;margin-right:-4px}
 
 /* 탭 */

@@ -27,5 +27,9 @@ public interface UserExamMapper {
 
 	List<?> getExamResultProduct(UserExamResultVo userExamResultVo);
 
+	void setExamResultScorePlus(UserExamResultVo userExamResultVo);
+
+	int getExamResultCnt(UserExamResultVo userExamResultVo);
+
 	
 }

@@ -28,6 +28,7 @@
                 <div class="box_02 blue_bg_01 pointer t_mar_30 animate__animated animate__swing animate__repeat-3" onclick="location.href='/view/subpage/view.do?idx=5';">
                     <div class="txt_30">고속도로 운전자 피로도</div>
                     <div class="txt_44 f_wet_07 t_pad_10">자가진단 참여하기</div>
+                    <div class="txt_30"><span>현재 참여 가능 인원수 50 / </span><span id="result_cnt"></span></div>
                 </div>
             </div>
 			<!-- 텍스트 끝 -->
@@ -50,6 +51,50 @@
 </div>
 <!-- 콘텐츠 끝 -->
 
+<%
+  String ip = (String) session.getAttribute("ip");
+%>
+
 <!--공통하단-->
 <%@ include file="../../include/user/footer.jsp" %>
 <script type="text/javascript">
+$(document).ready(function(){
+	const ip = '${ip}';
+
+	const today = new Date();
+	  
+	  const year = today.getFullYear();
+	  const month = String(today.getMonth() + 1).padStart(2, '0');  // 월은 0부터 시작하기 때문에 +1을 해야 합니다.
+	  const day = String(today.getDate()).padStart(2, '0');
+	  
+	  const time = year + month + day;
+	  
+	  console.log(time);
+
+	$.ajax({
+		url : '/view/exam/resultcnt.do',
+		type : 'POST',
+		data : ({
+			ip : ip,
+			create_tm : time
+		}),
+		success : function(data , status , xhr){
+			
+			console.log('success : ' + status);
+			console.log('result : ' + data);
+			
+			$('#result_cnt').html(data);
+			
+		},
+		error : function(status , error){
+			
+			console.log('error : ' + status);
+			
+		}
+	})
+
+	
+	
+})
+</script>
+

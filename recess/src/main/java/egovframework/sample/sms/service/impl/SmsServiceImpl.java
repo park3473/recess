@@ -229,6 +229,7 @@ public class SmsServiceImpl implements SmsService {
 		}
 		
 		System.out.println(alert);
+		System.out.println("문자 보내기 종료");
 		
 	}
 	

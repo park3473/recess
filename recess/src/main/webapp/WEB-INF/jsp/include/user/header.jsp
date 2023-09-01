@@ -38,7 +38,7 @@
 
 </head>
 
-<body>
+<body style="height:100% !important">
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script src="${pageContext.request.contextPath}/resources/js/gtag.js"></script>

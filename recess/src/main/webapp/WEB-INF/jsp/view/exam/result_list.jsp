@@ -8,7 +8,7 @@
 <!--삭제금지-->
 <script src="${pageContext.request.contextPath}/resources/sweetalert/jquery-1.12.4.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-
+<script src="${pageContext.request.contextPath}/resources/js/time_main.js"></script>
 
 <!--공통 헤더 시작-->
 <%@ include file="../../include/user//header.jsp" %>

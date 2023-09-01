@@ -4,7 +4,7 @@ public class UserExamResultVo {
 
 	String idx = "";
 	String exam_idx = "";
-	String name = "";
+	String ip = "";
 	String phone = "";
 	String place = "";
 	String score = "";
@@ -27,11 +27,11 @@ public class UserExamResultVo {
 	public void setExam_idx(String exam_idx) {
 		this.exam_idx = exam_idx;
 	}
-	public String getName() {
-		return name;
+	public String getIp() {
+		return ip;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 	public String getPhone() {
 		return phone;

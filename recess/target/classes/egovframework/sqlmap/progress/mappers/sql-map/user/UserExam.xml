@@ -3,35 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="egovframework.sample.user.exam.service.impl.UserExamMapper">
-	<select id="getExamData" parameterType="UserExamVo" resultType="hashMap">
-		SELECT
-		  exam_idx,
-		  idx,
-		  name,
-		  type,
-		  GROUP_CONCAT(select_content ORDER BY seq SEPARATOR ',') AS select_content_list,
-		  GROUP_CONCAT(select_score ORDER BY seq SEPARATOR ',') AS select_score_list
-		FROM (
-		  SELECT
-		    ql.exam_idx,
-		    q.idx,
-		    q.name,
-		    q.type,
-		    s.content AS select_content,
-		    s.score AS select_score,
-		    s.seq
-		  FROM TBL_QUESTION_LIST ql
-		  INNER JOIN TBL_QUESTION q ON ql.question_idx = q.idx
-		  INNER JOIN TBL_SELECT s ON q.idx = s.question_idx
-		  WHERE ql.exam_idx = #{idx}
-		) AS subquery
-		GROUP BY exam_idx, idx, name, type;
-	</select>
-	
-	<select id="getExamResultListDataCnt" parameterType="UserExamResultVo" resultType="int">
-		SELECT COUNT(*) FROM TBL_EXAM_RESULT
-		WHERE NAME = #{name} AND PHONE = #{phone}
-	</select>
 	
 	<select id="getExamOnOffCheck" parameterType="UserExamVo" resultType="String">
 		SELECT TYPE FROM TBL_EXAM
@@ -39,8 +10,8 @@
 	</select>
 	
 	<insert id="setExamResultData" parameterType="UserExamResultVo" useGeneratedKeys="true" keyProperty="idx" >
-		INSERT INTO TBL_EXAM_RESULT (EXAM_IDX , NAME , PHONE , PLACE , SCORE , PRODUCT , RECEIVE , VIDEO , AGE , CREATE_TM , UPDATE_TM)
-		VALUES (#{exam_idx} , #{name} , #{phone} , #{place} , #{score} , '' , 'no' , 'no' , #{age} , now() , now() )
+		INSERT INTO TBL_EXAM_RESULT (EXAM_IDX , PHONE , IP , PLACE , SCORE , PRODUCT , RECEIVE , VIDEO , AGE , CREATE_TM , UPDATE_TM)
+		VALUES (#{exam_idx} , #{phone} , #{ip} , #{place} , #{score} , '' , 'no' , 'no' , #{age} , now() , now() )
 	</insert>
 	
 	<select id="getExamResultList" parameterType="UserExamResultVo" resultType="hashMap">
@@ -50,12 +21,24 @@
 	
 	<select id="getExamResultListData" parameterType="UserExamResultVo" resultType="UserExamResultVo">
 		SELECT * FROM TBL_EXAM_RESULT
-		WHERE NAME = #{name} AND PHONE = #{phone} AND IDX = #{idx}
+		WHERE IDX = #{idx}
 	</select>
 	
 	<select id="getExamResultProduct" parameterType="UserExamResultVo" resultType="hashMap">
-		SELECT LIST.* , P.IMAGE , P.NAME  FROM TBL_PRODUCT_LIST LIST JOIN TBL_PRODUCT P ON LIST.PRO_IDX = P.IDX WHERE LIST.EXAM_IDX = #{exam_idx}
+		SELECT PRO.*, RESULT.score , P.image , P.name 
+		FROM TBL_EXAM_RESULT RESULT JOIN TBL_PRODUCT_LIST PRO JOIN TBL_PRODUCT P ON RESULT.exam_idx = PRO.exam_idx AND PRO.pro_idx = P.idx 
+		WHERE 
+    	RESULT.idx = #{idx} AND PRO.exam_idx = #{exam_idx} AND
+    	RESULT.score BETWEEN PRO.min_score AND PRO.max_score;
 	</select>
 	
+	<update id="setExamResultScorePlus" parameterType="UserExamResultVo">
+		UPDATE TBL_EXAM_RESULT SET SCORE = #{score} WHERE IDX = #{idx}
+	</update>
+	
+	<select id="getExamResultCnt" parameterType="UserExamResultVo" resultType="int">
+		SELECT COUNT(*) FROM TBL_EXAM_RESULT 
+		WHERE IP = #{ip} AND RECEIVE = 'yes'AND DATE_FORMAT(CREATE_TM , '%Y%m%d') = #{create_tm}
+	</select>
 	
 </mapper>

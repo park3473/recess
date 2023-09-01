@@ -8,11 +8,22 @@
 <!--삭제금지-->
 <script src="${pageContext.request.contextPath}/resources/sweetalert/jquery-1.12.4.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-
+<script src="${pageContext.request.contextPath}/resources/js/time_main.js"></script>
 
 <!--공통 헤더 시작-->
 <%@ include file="../../include/user//header.jsp" %>
 <%@ include file="../../include/user/menu.jsp" %>
+
+<style>
+
+  .sub_wrap_box, .btn_wrap{
+      display: none; /* 처음에는 모든 문제를 숨김 */
+    }
+    .active_exam {
+      display: block; /* 활성화된 문제만 보임 */
+    }
+
+</style>
 
 <!-- 콘텐츠 -->
 <div id="sub">
@@ -22,30 +33,38 @@
             <div class="sub_tit font_noto">운전자피로도<span class="f_wet_03"> 자가진단</span></div>
             <!-- 타이틀끝 -->
             <!-- 문제 -->
-            <div class="sub_wrap_box font_noto">
+            <c:forEach items="${model.list}" var="item" varStatus="status">
+            <c:set var="selectContentList" value="${fn:split(item.select_content_list, ',')}" />
+      		<c:set var="selectScoreList" value="${fn:split(item.select_score_list, ',')}" />
+            <div class="sub_wrap_box font_noto" id="exam_list">
                 <div class="flex_l">
-                    <span class="box_06 blue_bg_01 txt_36 f_wet_05">Q1</span>
+                    <span class="box_06 blue_bg_01 txt_36 f_wet_05">Q${status.index + 1 }</span>
                     <span class="txt_24 f_wet_05 l_pad_50">
-                    질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다<br>질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다<br>질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다질문지 영역입니다<br>
+                    	${item.name}
                     </span>
                 </div>
                 <div class="cont_txt">
                     <div class="box_wrap font_noto txt_24">
-                        <ul class="qna_ul b_pad_30">
-                            <li class="qna_li"><span class="box_07 white_bg_01">1</span><input type="radio" name="xxx" value="yyy" checked class="radio">내용입력</li>
-                            <li class="qna_li"><span class="box_07 white_bg_01">2</span><input type="radio" name="xxx" value="yyy" class="radio">내용입력</li>
-                        </ul>
                         <ul class="qna_ul">
-                            <li class="qna_li"><span class="box_07 white_bg_01">3</span><input type="radio" name="xxx" value="yyy" class="radio">내용입력</li>
-                            <li class="qna_li"><span class="box_07 white_bg_01">4</span><input type="radio" name="xxx" value="yyy" class="radio">내용입력</li>
+                        	<c:forEach var="content" items="${selectContentList}" varStatus="selectStatus">
+                            <li class="qna_li b_pad_30" onclick="q_check(this)"><span class="box_07 white_bg_01">${selectStatus.index + 1}</span><input type="radio" name="${item.name}" value="${selectScoreList[selectStatus.index]}" class="radio">${content.trim()}</li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- 문제끝 -->
+            <c:if test="${!status.last}">
             <div class="btn_wrap">
-                <div class="btn_01 blue_bg_01 font_noto pointer animate__animated animate__swing animate__repeat-3" onclick="location.href='/view/subpage/view.do?idx=8';">제출하기</div>
+                <div class="btn_01 blue_bg_01 font_noto pointer animate__animated animate__swing animate__repeat-3">다음문제</div>
             </div>
+            </c:if>
+            <c:if test="${status.last}">
+            <div class="btn_wrap">
+                <div class="btn_01 blue_bg_01 font_noto pointer animate__animated animate__swing animate__repeat-3">제출하기</div>
+            </div>
+            </c:if>
+            </c:forEach>
+            <!-- 문제끝 -->
         </div>
     </div>
 </div>
@@ -53,8 +72,6 @@
 <!-- 
 <div id="survey">
 	<ul>
-		<li>이름 : <input type="text" name="name"></li>
-		<li>핸드폰 : <input type="text" name="phone" placeholder="-제외한 010부터 숫자만 입력해주세요." oninput="this.value = this.value.replace(/[^0-9]/g, '');"></li>
 		<li>연령대 : 
 		<select name="age">
 			<option value="">연령대를 선택해주세요</option>
@@ -87,7 +104,7 @@
 <div style="display:none" id="submit">
 	<form action="/view/exam/insert.do" method="POST" >
 		<input type="text" name="exam_idx" value="${model.idx }">
-		<input type="text" name="name" value="">
+		<input type="text" name="ip" value="">
 		<input type="text" name="phone" value="">
 		<input type="text" name="age" value="">
 		<input type="text" name="score" value="">
@@ -98,21 +115,47 @@
 <%@ include file="../../include/user/footer.jsp" %>
 <script type="text/javascript">
 
+$(document).ready(function(){
+    let currentQuestion = 0; // 현재 문제 인덱스
+    const totalQuestions = $(".sub_wrap_box").length; // 전체 문제 수
+    
+    // 첫 번째 문제를 보여줌
+    $(".sub_wrap_box").eq(currentQuestion).addClass("active_exam");
+    $(".btn_wrap").eq(currentQuestion).addClass("active_exam");
+
+    $(".btn_01").click(function(){
+      
+    	//현재 문제 답안 석택 했는지 확인
+    	const isChecked = $(".sub_wrap_box.active_exam input[type='radio']:checked").length > 0;
+
+    	  if (!isChecked) {
+    	    Swal.fire("답안을 선택해주세요.");
+    	    return;
+    	  }else{
+    		 if(currentQuestion >= totalQuestions-1) {
+    			 Swal.fire("모든 문제를 완료했습니다.");
+    			 exam_result_insert();
+    	  	}
+    	  }
+    	
+    // 현재 문제를 숨김
+      $(".sub_wrap_box").eq(currentQuestion).removeClass("active_exam");
+      $(".btn_wrap").eq(currentQuestion).removeClass("active_exam");
+      
+      currentQuestion++; // 다음 문제 인덱스로 이동
+
+      
+      // 다음 문제를 보여줌
+      $(".sub_wrap_box").eq(currentQuestion).addClass("active_exam");
+      $(".btn_wrap").eq(currentQuestion).addClass("active_exam");
+      
+      
+    });
+  });
+
+
 function exam_result_insert(){
 
-	var bool = confirm('해당 설문을 제출하시겠습니까?');
-	if(bool){
-	
-		var exam_check_member = member_check();
-		var exam_check_bool = exam_check();
-		
-		console.log('exam : ' + exam_check_bool);
-		console.log('member : ' + exam_check_member);
-		
-		if(!(exam_check_bool && exam_check_member)){
-			alert('해당 설문을 모두 확인해주세요.');
-			return;
-		}
 		
 		var score_list = [];
 		var all_score = 0;
@@ -120,8 +163,6 @@ function exam_result_insert(){
 			score_list.push($(this).val()); 
 		    all_score += parseInt($(this).val());
 		})
-		
-		all_score += parseInt($('#survey [name=age]').val());
 		
 		console.log('name : ' + $('#survey [name=name]').val());
 		console.log('phone : ' + $('#survey [name=phone]').val());
@@ -136,9 +177,7 @@ function exam_result_insert(){
 		
 		$('#submit form').submit();
 		
-		
-		
-	}
+	
 	
 }
 
@@ -161,24 +200,10 @@ function exam_check(){
 	
 }
 
-function member_check(){
-	
-	var MemberCheck = true;
-	
-	if($('#survey [name=name]').val() != '' &&  $('#survey [name=phone]').val() != '' && $('#survey [name=age]').val() != ''){
-		
-		MemberCheck = true;
-		
-	}else{
-		
-		MemberCheck = false;
-		
-	}
-	
-	return MemberCheck
-	
+function q_check(e){
+
+    $(e).find('input').prop('checked',true);
+    
 }
-
-
 
 </script>

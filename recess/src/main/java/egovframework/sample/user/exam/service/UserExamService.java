@@ -24,5 +24,9 @@ public interface UserExamService {
 
 	public List<?> getExamResultProduct(UserExamResultVo userExamResultVo);
 
+	public void setExamResultScorePlus(UserExamResultVo userExamResultVo);
+
+	public String getExamResultCnt(UserExamResultVo userExamResultVo);
+
 
 }
